@@ -195,9 +195,21 @@ CompositeCollider2D:
   m_EdgeRadius: 0
   m_ColliderPaths:
   - m_Collider: {fileID: 47253031}
-    m_ColliderPaths: []
+    m_ColliderPaths:
+    - - X: 170000000
+        Y: 40000000
+      - X: 140000000
+        Y: 40000000
+      - X: 140000000
+        Y: 20000000
+      - X: 170000000
+        Y: 20000000
   m_CompositePaths:
-    m_Paths: []
+    m_Paths:
+    - - {x: 16.999971, y: 2}
+      - {x: 16.999971, y: 4}
+      - {x: 14, y: 3.999971}
+      - {x: 14.000029, y: 2}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
   m_UseDelaunayMesh: 0
@@ -637,7 +649,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.RenderPipelines.Universal.2D.Runtime::UnityEngine.Rendering.Universal.Light2D
   m_ComponentVersion: 4
-  m_LightType: 0
+  m_LightType: 4
   m_BlendStyleIndex: 0
   m_Light2DProvider:
     rid: -2
@@ -766,10 +778,10 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.16666667
-    y: 0.055555556
-    width: 0.6666667
-    height: 0.8888889
+    x: 0
+    y: 0
+    width: 1
+    height: 1
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
@@ -821,7 +833,7 @@ MonoBehaviour:
   m_AssetsPPU: 16
   m_RefResolutionX: 320
   m_RefResolutionY: 240
-  m_CropFrame: 3
+  m_CropFrame: 0
   m_GridSnapping: 0
   m_FilterMode: 0
   m_UpscaleRT: 0
@@ -10282,9 +10294,81 @@ CompositeCollider2D:
   m_EdgeRadius: 0
   m_ColliderPaths:
   - m_Collider: {fileID: 1710452791}
-    m_ColliderPaths: []
+    m_ColliderPaths:
+    - - X: 600000000
+        Y: 150000000
+      - X: 0
+        Y: 150000000
+      - X: 0
+        Y: 0
+      - X: 600000000
+        Y: 0
+    - - X: 10000000
+        Y: 10000000
+      - X: 10000000
+        Y: 140000000
+      - X: 200000000
+        Y: 140000000
+      - X: 200000000
+        Y: 80000000
+      - X: 210000000
+        Y: 80000000
+      - X: 210000000
+        Y: 140000000
+      - X: 400000000
+        Y: 140000000
+      - X: 400000000
+        Y: 80000000
+      - X: 410000000
+        Y: 80000000
+      - X: 410000000
+        Y: 140000000
+      - X: 590000000
+        Y: 140000000
+      - X: 590000000
+        Y: 10000000
+      - X: 410000000
+        Y: 10000000
+      - X: 410000000
+        Y: 60000000
+      - X: 400000000
+        Y: 60000000
+      - X: 400000000
+        Y: 10000000
+      - X: 210000000
+        Y: 10000000
+      - X: 210000000
+        Y: 60000000
+      - X: 200000000
+        Y: 60000000
+      - X: 200000000
+        Y: 10000000
   m_CompositePaths:
-    m_Paths: []
+    m_Paths:
+    - - {x: 59.99997, y: 0}
+      - {x: 59.99997, y: 15}
+      - {x: 0, y: 14.999971}
+      - {x: 0.000029300001, y: 0}
+    - - {x: 40, y: 1.0000294}
+      - {x: 21, y: 1.0000294}
+      - {x: 20.999971, y: 6}
+      - {x: 20, y: 5.999971}
+      - {x: 19.999971, y: 1}
+      - {x: 1, y: 1.0000294}
+      - {x: 1.0000294, y: 14}
+      - {x: 20, y: 13.999971}
+      - {x: 20.000029, y: 8}
+      - {x: 21, y: 8.00003}
+      - {x: 21.000029, y: 14}
+      - {x: 40, y: 13.999971}
+      - {x: 40.00003, y: 8}
+      - {x: 41, y: 8.00003}
+      - {x: 41.00003, y: 14}
+      - {x: 59, y: 13.999971}
+      - {x: 58.99997, y: 1}
+      - {x: 41, y: 1.0000294}
+      - {x: 40.999973, y: 6}
+      - {x: 40, y: 5.999971}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
   m_UseDelaunayMesh: 0
