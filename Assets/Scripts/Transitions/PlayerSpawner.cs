@@ -36,6 +36,22 @@ namespace DreamHacks.Transitions
             // llegue a la nueva escena con el impulso del trigger anterior.
             var rb = player.GetComponent<Rigidbody2D>();
             if (rb != null) rb.linearVelocity = Vector2.zero;
+
+            // Sincroniza el checkpoint del PlayerRespawn (metroidvania) a la
+            // nueva posición. Sin esto, cuando el jugador cae por un hueco en
+            // Bioma1, revive en la posición del prefab original (1.5, 2), no
+            // en el spawn por el que entró a la escena.
+            var respawnType = System.Type.GetType("PlayerRespawn, Assembly-CSharp");
+            if (respawnType != null)
+            {
+                var respawn = player.GetComponent(respawnType);
+                if (respawn != null)
+                {
+                    var field = respawnType.GetField("checkpointPosition",
+                        System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                    if (field != null) field.SetValue(respawn, (Vector2)player.transform.position);
+                }
+            }
         }
 
         private static SpawnPoint FindById(string id)
