@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b05b1d70adf722272845eb82f0b7659e, type: 3}
+  m_Name: Vec_3
+  m_EditorClassIdentifier: Assembly-CSharp::DreamHacks.Dialogue.DialogueNode
+  speakerName: Protagonista
+  portrait: {fileID: 21300000, guid: 58a38efad4fb278b7b912b688c5f77b2, type: 3}
+  text: "Interesante. Quiz\xE1 me quede a investigar un rato."
+  choices: []
+  next: {fileID: 0}

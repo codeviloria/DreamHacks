@@ -4,28 +4,38 @@ using DreamHacks.Dialogue;
 namespace DreamHacks.World
 {
     /// <summary>
-    /// NPC básico de caja blanca: tiene un diálogo asignado y expone un método
-    /// Interact() que lo lanza en la DialogueUI. El collider trigger lo detecta
-    /// el PlayerInteractor del jugador.
+    /// NPC básico de caja blanca. Puede llevar:
+    ///   - dialogueNode: diálogo con bifurcaciones (prioridad si está asignado).
+    ///   - dialogue:     diálogo lineal clásico (fallback).
+    /// Interact() lanza el que corresponda.
     /// </summary>
     public class NPC : MonoBehaviour
     {
+        [SerializeField] private DialogueNode dialogueNode;
         [SerializeField] private DialogueAsset dialogue;
 
-        // Nombre interno para debug / futura máquina de estados.
         [SerializeField] private string npcName = "NPC";
 
         public string NpcName => npcName;
 
         public void Interact()
         {
-            if (dialogue == null)
+            if (DialogueUI.Instance == null)
             {
-                Debug.LogWarning($"NPC '{npcName}' sin diálogo asignado");
+                Debug.LogWarning("No hay DialogueUI en la escena");
                 return;
             }
-            if (DialogueUI.Instance != null) DialogueUI.Instance.Show(dialogue);
-            else Debug.LogWarning("No hay DialogueUI en la escena");
+            if (dialogueNode != null)
+            {
+                DialogueUI.Instance.Show(dialogueNode);
+                return;
+            }
+            if (dialogue != null)
+            {
+                DialogueUI.Instance.Show(dialogue);
+                return;
+            }
+            Debug.LogWarning($"NPC '{npcName}' sin diálogo asignado");
         }
     }
 }

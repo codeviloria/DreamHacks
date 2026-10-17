@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b05b1d70adf722272845eb82f0b7659e, type: 3}
+  m_Name: Guia_1
+  m_EditorClassIdentifier: Assembly-CSharp::DreamHacks.Dialogue.DialogueNode
+  speakerName: "Gu\xEDa"
+  portrait: {fileID: 21300000, guid: c4e29f79475519383aa7a0d97aec90be, type: 3}
+  text: "\xA1Bienvenido! Para moverte usa WASD o flechas. \xBFQu\xE9 quieres saber?"
+  choices:
+  - text: "\xBFC\xF3mo hablo con alguien?"
+    next: {fileID: 11400000, guid: e37df2efd9980d31ea64bb5d3d3907a7, type: 2}
+  - text: "\xBFY para cerrar el di\xE1logo?"
+    next: {fileID: 11400000, guid: 1afd724355e31d65d9040b576233d69f, type: 2}
+  - text: "\xBFQu\xE9 son esos rojos?"
+    next: {fileID: 11400000, guid: 4e77c21c35b4082cab2f219512fb636b, type: 2}
+  - text: "Nada, adi\xF3s."
+    next: {fileID: 0}
+  next: {fileID: 0}
