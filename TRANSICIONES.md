@@ -39,3 +39,42 @@
 - `bioma1_inicio` — SpawnPoint en Bioma1, lado izquierdo.
 - `salida_cueva` — SpawnPoint en Sandbox_Gino, dentro de la sala 3 (lejos del inicio original para que no se sienta un ciclo).
 - `default` — fallback si `TransitionState.NextSpawnId` no coincide (p.ej. al abrir una escena en modo editor).
+
+---
+
+## Reporte final (paso 7)
+
+### Escenas tocadas
+
+| Escena | Qué se agregó |
+|---|---|
+| `Assets/_Project/Scenes/_Sandbox/Sandbox_Gino.unity` | `Entrada_Bioma1` trigger (15, 10), `Spawn_salida_cueva` (50, 7.5), `Spawn_default` (10, 7.5), `PlayerSpawner`. |
+| `Assets/_Project/Scenes/Bioma1.unity` **(nueva)** | Duplicada de `Bioma_WhatsApp_Sala1`. `Spawn_bioma1_inicio` (-2, 5), `PlayerSpawner`, `Salida_Bioma1` trigger (46, 5). |
+
+### Ids de spawn usados
+
+| Id | Escena | Posición | Rol |
+|---|---|---|---|
+| `bioma1_inicio` | Bioma1 | (-2, 5) | Entrada desde el top-down. |
+| `salida_cueva` | Sandbox_Gino | (50, 7.5) | Regreso tras completar Bioma1 (sala 3). |
+| `default` | Sandbox_Gino | (10, 7.5) | Fallback (equivale al spawn inicial original). |
+
+### Cómo añadir una nueva transición en 3 pasos
+
+1. **Marca el destino** en la escena de llegada: crea un GameObject vacío, añade `SpawnPoint` y escribe un `spawnId` único (p.ej. `bosque_norte`). Si la escena de llegada aún no lo tiene, pégale también un `PlayerSpawner`.
+2. **Pon el trigger** en la escena de salida: crea un GameObject con un `SpriteRenderer` (sprite `P_PortalCueva` o el que corresponda), un `BoxCollider2D` con `isTrigger`, y un `SceneTransition` con `targetScene = "<escena destino>"` y `targetSpawnId = "<el id del paso 1>"`.
+3. **Registra la escena destino** en `File → Build Settings` si todavía no está (sin eso, `LoadScene` falla en runtime).
+
+### Lo que quedó pendiente
+
+- La escena `Bioma1` arrastra una advertencia visual: el prefab `Kenney_WhatsApp` usa un material URP `Sprite-Lit-Default` cuyo GUID se resuelve desde el PackageCache local — en algunos reimports Unity puede marcarlo como rosa hasta que se refresca. No bloquea.
+- El `Player` de Bioma1 es el prefab del metroidvania (`Assets/MetroidvaniaBase/Prefabs/Player.prefab`) con `PlayerController2D` + `PlayerRespawn`. Cuando entras desde Sandbox_Gino, el Player del top-down se destruye con la escena y aparece el 2D — esto es el comportamiento deseado. Al volver pasa lo mismo al revés.
+- `Entrada_Bioma1` está en (15, 10) de Sala 1, visualmente cerca del borde superior. Si molesta a la cámara deslizante, moverlo a otra sala es un cambio de posición puro, sin tocar lógica.
+- No se añadió trigger de salida en Bioma1 por si el jugador se cae del nivel. `PlayerRespawn` del prefab metroidvania maneja `killY = -10`; con el spawn en (-2, 5) hay margen de sobra.
+- Falta pulido: no hay sonido al pasar, ni animación distinta del fade; tampoco un bloqueo del input del jugador durante el fade (el `ScreenFader` cubre visualmente pero el `PlayerController` sigue leyendo input).
+
+### No hacer (recordatorio)
+
+- No borrar ni renombrar escenas existentes.
+- No tocar `Assets/MetroidvaniaBase/*` (es la base de referencia). Si hace falta cambiar algo del metroidvania, duplicar como se hizo con `Bioma1`.
+- No fusionar `feature/transicion-cuevas` en `main` todavía.
