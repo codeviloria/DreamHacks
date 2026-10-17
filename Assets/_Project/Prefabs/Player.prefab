@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4119098611208901102}
   - component: {fileID: 6609722473223668693}
   - component: {fileID: 2802427119507041165}
+  - component: {fileID: 7565114272146192774}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -85,7 +86,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 58a38efad4fb278b7b912b688c5f77b2, type: 3}
+  m_Sprite: {fileID: 8313901251537461793, guid: f1b2cffc3559f31e68a750be9040a1a9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -161,7 +162,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 1.25, y: 1.4375}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -182,6 +183,49 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DreamHacks.PlayerNS.PlayerController
   moveSpeed: 4.5
+--- !u!114 &7565114272146192774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4430734934152756864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bddf594d9032da02bafabc5afb1bf50c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DreamHacks.PlayerNS.PlayerSpriteDirection
+  up:
+    frame0: {fileID: 5514858500815495840, guid: 9d1d2fc7676e3db7181ceab492a4f283, type: 3}
+    frame1: {fileID: -4522870967703172953, guid: 9d1d2fc7676e3db7181ceab492a4f283, type: 3}
+  down:
+    frame0: {fileID: 8313901251537461793, guid: f1b2cffc3559f31e68a750be9040a1a9, type: 3}
+    frame1: {fileID: -6415609030255631546, guid: f1b2cffc3559f31e68a750be9040a1a9, type: 3}
+  left:
+    frame0: {fileID: 6118496979925411130, guid: c0d2df25492eeb8888668c4a05439c92, type: 3}
+    frame1: {fileID: 4505287377869703658, guid: c0d2df25492eeb8888668c4a05439c92, type: 3}
+  right:
+    frame0: {fileID: 4746922022264502189, guid: ce829b2db948db6348fe42b0b8298194, type: 3}
+    frame1: {fileID: -5740164678915212769, guid: ce829b2db948db6348fe42b0b8298194, type: 3}
+  downRight:
+    frame0: {fileID: 94073854456593665, guid: 32cf4a97b4a2bb5a5a8abdb4c3728244, type: 3}
+    frame1: {fileID: 7382513207142590411, guid: 32cf4a97b4a2bb5a5a8abdb4c3728244, type: 3}
+  downLeft:
+    frame0: {fileID: -9142636211788089049, guid: 9eeee737998ee352883f735bec11ec68, type: 3}
+    frame1: {fileID: -2322606773342587261, guid: 9eeee737998ee352883f735bec11ec68, type: 3}
+  upRight:
+    frame0: {fileID: -7035843982345628239, guid: e7e833a110616a660b60ca0fe5ec8b5f, type: 3}
+    frame1: {fileID: -155624032268410105, guid: e7e833a110616a660b60ca0fe5ec8b5f, type: 3}
+  upLeft:
+    frame0: {fileID: -6963327028899215220, guid: 85ea34209a4fbe0df82fe4ad9e8c8fc2, type: 3}
+    frame1: {fileID: 4332340765198404115, guid: 85ea34209a4fbe0df82fe4ad9e8c8fc2, type: 3}
+  afk:
+    frame0: {fileID: -3646201894632693829, guid: 04296d33f26671cb8a524611d68113bf, type: 3}
+    frame1: {fileID: -4781097354633174964, guid: 04296d33f26671cb8a524611d68113bf, type: 3}
+  walkFrameSeconds: 0.18
+  idleFrameSeconds: 0.6
+  moveThreshold: 0.1
+  diagonalThreshold: 0.4
 --- !u!1 &6363856559256883002
 GameObject:
   m_ObjectHideFlags: 0
