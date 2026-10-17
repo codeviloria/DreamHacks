@@ -1,20 +1,25 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace DreamHacks.Transitions
 {
     /// <summary>
-    /// Fundido a negro usado por SceneTransition antes y después del cambio de
-    /// escena. Es un singleton perezoso: se crea on-demand su propio Canvas +
-    /// Image a pantalla completa, se marca DontDestroyOnLoad y se queda listo
-    /// para cualquier otra transición futura.
+    /// Fundido a negro usado por SceneTransition. Singleton perezoso con su
+    /// propio Canvas Overlay + Image a pantalla completa, DontDestroyOnLoad.
+    /// Se suscribe a SceneManager.sceneLoaded para hacer el fade-IN por su
+    /// cuenta: la corrutina del SceneTransition original muere al cargar la
+    /// nueva escena, así que el fade-in no puede vivir allí.
     /// </summary>
     public class ScreenFader : MonoBehaviour
     {
         private static ScreenFader _instance;
 
         private Image _image;
+
+        [Tooltip("Duración del fade-in automático al cargar una escena.")]
+        private float _postLoadFadeDuration = 0.3f;
 
         public static ScreenFader Instance
         {
@@ -51,6 +56,21 @@ namespace DreamHacks.Transitions
             rt.anchorMax = Vector2.one;
             rt.offsetMin = Vector2.zero;
             rt.offsetMax = Vector2.zero;
+
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+
+        private void OnDestroy()
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+            if (_instance == this) _instance = null;
+        }
+
+        private void OnSceneLoaded(Scene s, LoadSceneMode mode)
+        {
+            // Siempre que termine un LoadScene, asegurar que la pantalla queda
+            // visible. Si no veníamos de un fade-out, es un no-op (alpha ya 0).
+            StartCoroutine(FadeTo(0f, _postLoadFadeDuration));
         }
 
         public IEnumerator FadeTo(float targetAlpha, float duration)

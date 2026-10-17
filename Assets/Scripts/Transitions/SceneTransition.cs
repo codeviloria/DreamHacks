@@ -44,9 +44,10 @@ namespace DreamHacks.Transitions
         {
             TransitionState.NextSpawnId = targetSpawnId;
             yield return ScreenFader.Instance.FadeTo(1f, fadeDuration);
-            var op = SceneManager.LoadSceneAsync(targetScene, LoadSceneMode.Single);
-            while (op != null && !op.isDone) yield return null;
-            yield return ScreenFader.Instance.FadeTo(0f, fadeDuration);
+            // El fade-in post-load lo dispara ScreenFader.OnSceneLoaded, porque
+            // esta corrutina muere junto con el GameObject al cargar la nueva
+            // escena en modo Single.
+            SceneManager.LoadScene(targetScene, LoadSceneMode.Single);
         }
     }
 }
