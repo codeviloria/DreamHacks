@@ -21,7 +21,14 @@ namespace DreamHacks.Dialogue
         public static DialogueUI Instance { get; private set; }
 
         [SerializeField] private GameObject panel;
+        [Tooltip("Retrato del NPC (lado izquierdo). Siempre visible durante el diálogo si está asignado.")]
         [SerializeField] private Image portraitImage;
+        [Tooltip("Retrato del protagonista (lado derecho). Siempre visible si está asignado.")]
+        [SerializeField] private Image playerPortraitImage;
+        [Tooltip("Sprite por defecto para el retrato del protagonista cuando el nodo no trae portrait propio.")]
+        [SerializeField] private Sprite defaultPlayerPortrait;
+        [Tooltip("Sprite por defecto para el retrato del NPC cuando el nodo no trae portrait propio.")]
+        [SerializeField] private Sprite defaultNpcPortrait;
         [SerializeField] private Text speakerText;
         [SerializeField] private Text bodyText;
 
@@ -80,6 +87,8 @@ namespace DreamHacks.Dialogue
             _lines = dialogue.Lines;
             _index = 0;
             _currentNode = null;
+            // En modo lineal mostramos solo el retrato que trae cada línea.
+            if (playerPortraitImage != null) playerPortraitImage.enabled = false;
             StartLineLinear();
         }
 
@@ -170,8 +179,35 @@ namespace DreamHacks.Dialogue
         private void EnterNode(DialogueNode node)
         {
             _currentNode = node;
-            SetSpeaker(node.SpeakerName, node.Portrait);
+            UpdateTwoSidedPortraits(node);
+            if (speakerText != null) speakerText.text = node.SpeakerName;
             StartTyping(node.Text);
+        }
+
+        // Muestra los dos retratos (NPC izquierda, player derecha) y resalta el
+        // que está hablando ahora. El inactivo baja opacidad para que el ojo
+        // sepa de un vistazo quién tiene el turno.
+        private static readonly Color ActiveTint   = new Color(1f, 1f, 1f, 1f);
+        private static readonly Color InactiveTint = new Color(0.4f, 0.4f, 0.4f, 0.6f);
+
+        private void UpdateTwoSidedPortraits(DialogueNode node)
+        {
+            // Decidir sprites efectivos.
+            Sprite npcSprite    = node.IsPlayer ? defaultNpcPortrait    : (node.Portrait != null ? node.Portrait : defaultNpcPortrait);
+            Sprite playerSprite = node.IsPlayer ? (node.Portrait != null ? node.Portrait : defaultPlayerPortrait) : defaultPlayerPortrait;
+
+            if (portraitImage != null)
+            {
+                portraitImage.sprite = npcSprite;
+                portraitImage.enabled = npcSprite != null;
+                portraitImage.color = node.IsPlayer ? InactiveTint : ActiveTint;
+            }
+            if (playerPortraitImage != null)
+            {
+                playerPortraitImage.sprite = playerSprite;
+                playerPortraitImage.enabled = playerSprite != null;
+                playerPortraitImage.color = node.IsPlayer ? ActiveTint : InactiveTint;
+            }
         }
 
         private void MaybeShowChoices()

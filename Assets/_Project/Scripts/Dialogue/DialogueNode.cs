@@ -32,6 +32,9 @@ namespace DreamHacks.Dialogue
         [SerializeField] private Sprite portrait;
         [TextArea(2, 6)] [SerializeField] private string text;
 
+        [Tooltip("Si es true, la línea sale del Protagonista (retrato derecho); si no, de un NPC (retrato izquierdo).")]
+        [SerializeField] private bool isPlayer;
+
         [Header("Flujo")]
         [Tooltip("Opciones de elección. Si está vacía se usa 'next' como continuación lineal.")]
         [SerializeField] private List<DialogueChoice> choices = new List<DialogueChoice>();
@@ -42,6 +45,7 @@ namespace DreamHacks.Dialogue
         public string SpeakerName => speakerName;
         public Sprite Portrait => portrait;
         public string Text => text;
+        public bool IsPlayer => isPlayer;
         public IReadOnlyList<DialogueChoice> Choices => choices;
         public DialogueNode Next => next;
         public bool HasChoices => choices != null && choices.Count > 0;

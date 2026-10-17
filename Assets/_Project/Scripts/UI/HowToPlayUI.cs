@@ -18,8 +18,11 @@ namespace DreamHacks.UI
         private void Awake()
         {
             if (panel != null) panel.SetActive(showOnStart);
-            // Toggle manual con F1.
-            _toggleAction = new InputAction("ToggleHelp", binding: "<Keyboard>/f1");
+            // Toggle manual con H (Help). F1 chocaba con el atajo de ayuda de GNOME.
+            // Añadimos también Select del gamepad por accesibilidad desde el mando.
+            _toggleAction = new InputAction("ToggleHelp");
+            _toggleAction.AddBinding("<Keyboard>/h");
+            _toggleAction.AddBinding("<Gamepad>/select");
             _toggleAction.performed += ctx => Toggle();
             _toggleAction.Enable();
         }
