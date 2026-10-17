@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace DreamHacks.World
 {
     /// <summary>
@@ -10,5 +12,14 @@ namespace DreamHacks.World
         // Cualquier sistema (cámara, diálogo, cutscene) puede bloquear el input
         // del jugador poniendo este flag en true.
         public static bool InputBlocked;
+
+        // Resetear el flag al entrar en Play, porque el proyecto usa
+        // "Enter Play Mode Options" con Disable Domain Reload y los static
+        // no se reinicializan por sí solos.
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        private static void ResetOnEnterPlayMode()
+        {
+            InputBlocked = false;
+        }
     }
 }
