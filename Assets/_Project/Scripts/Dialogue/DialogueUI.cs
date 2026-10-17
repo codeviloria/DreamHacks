@@ -200,14 +200,24 @@ namespace DreamHacks.Dialogue
             {
                 portraitImage.sprite = npcSprite;
                 portraitImage.enabled = npcSprite != null;
-                portraitImage.color = node.IsPlayer ? InactiveTint : ActiveTint;
             }
             if (playerPortraitImage != null)
             {
                 playerPortraitImage.sprite = playerSprite;
                 playerPortraitImage.enabled = playerSprite != null;
-                playerPortraitImage.color = node.IsPlayer ? ActiveTint : InactiveTint;
             }
+            SetActiveSide(playerActive: node.IsPlayer);
+        }
+
+        // Tinta un lado como activo y el otro como pasivo. No toca los sprites
+        // asignados, sólo los colores: así se puede llamar también cuando el
+        // jugador está eligiendo y no hay un DialogueNode "actual" propio.
+        private void SetActiveSide(bool playerActive)
+        {
+            if (portraitImage != null)
+                portraitImage.color = playerActive ? InactiveTint : ActiveTint;
+            if (playerPortraitImage != null)
+                playerPortraitImage.color = playerActive ? ActiveTint : InactiveTint;
         }
 
         private void MaybeShowChoices()
@@ -225,6 +235,12 @@ namespace DreamHacks.Dialogue
             // Mientras hay opciones ocultamos el body: la pregunta ya se leyó y
             // así los botones no se solapan con el texto.
             if (bodyText != null) bodyText.enabled = false;
+
+            // Las opciones las "dice" el protagonista, así que iluminamos su
+            // retrato y bajamos el del NPC para que se note de un vistazo
+            // que ahora es el turno del jugador.
+            SetActiveSide(playerActive: true);
+            if (speakerText != null) speakerText.text = "Tú";
             foreach (var choice in choices)
             {
                 var btn = Instantiate(choiceButtonPrefab, choicesContainer);
