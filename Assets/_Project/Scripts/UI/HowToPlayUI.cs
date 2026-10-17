@@ -14,7 +14,7 @@ namespace DreamHacks.UI
     public class HowToPlayUI : MonoBehaviour
     {
         [SerializeField] private GameObject panel;
-        [SerializeField] private bool showOnStart = true;
+        [SerializeField] private bool showOnStart = false;
 
         private InputAction _toggleAction;
         private bool _paused;
