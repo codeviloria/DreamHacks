@@ -12,10 +12,19 @@ EditorBuildSettings:
     path: Assets/_Project/Scenes/IntroCutscene.unity
     guid: 9161d3740898c524482bab45407b7b5f
   - enabled: 1
+    path: Assets/MetroidvaniaBase/Scenes/Hospital.unity
+    guid: 21570ce880b6f38b9a27780da10f24cc
+  - enabled: 1
+    path: Assets/_Project/Scenes/ComicIntro.unity
+    guid: 85ebb9d56faf6c213a944603c2dfed31
+  - enabled: 1
     path: Assets/_Project/Scenes/_Sandbox/Sandbox_Gino.unity
     guid: 7e255cbfe1cd0a52194e3524274e65cc
   - enabled: 1
     path: Assets/_Project/Scenes/Bioma1.unity
     guid: fd67938c096c42dca5482b7f3ff06a4b
+  - enabled: 1
+    path: Assets/_Project/Scenes/Battle.unity
+    guid: 6080fd7b993741ae98627adfddc82753
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

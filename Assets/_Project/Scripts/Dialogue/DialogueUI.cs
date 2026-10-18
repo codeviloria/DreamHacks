@@ -29,6 +29,8 @@ namespace DreamHacks.Dialogue
         [SerializeField] private Sprite defaultPlayerPortrait;
         [Tooltip("Sprite por defecto para el retrato del NPC cuando el nodo no trae portrait propio.")]
         [SerializeField] private Sprite defaultNpcPortrait;
+        [Tooltip("Nombres de speaker que se consideran protagonista. Si alguna línea los nombra, se fuerza defaultPlayerPortrait (ignorando el portrait del asset, por ejemplo si quedó el placeholder verde).")]
+        [SerializeField] private string[] playerSpeakerNames = new[] { "Iker", "Protagonista", "Player", "Tú", "Tu" };
         [SerializeField] private Text speakerText;
         [SerializeField] private Text bodyText;
 
@@ -192,9 +194,20 @@ namespace DreamHacks.Dialogue
 
         private void UpdateTwoSidedPortraits(DialogueNode node)
         {
-            // Decidir sprites efectivos.
-            Sprite npcSprite    = node.IsPlayer ? defaultNpcPortrait    : (node.Portrait != null ? node.Portrait : defaultNpcPortrait);
-            Sprite playerSprite = node.IsPlayer ? (node.Portrait != null ? node.Portrait : defaultPlayerPortrait) : defaultPlayerPortrait;
+            // El lado del protagonista SIEMPRE prefiere defaultPlayerPortrait si
+            // está asignado: así los DialogueNodes viejos que guardaban el cuadro
+            // verde placeholder en 'portrait' pasan a mostrar la cara nueva sin
+            // tocar cada ScriptableObject. Si no hay default, cae al portrait
+            // del nodo cuando el nodo es del jugador.
+            Sprite playerSprite = defaultPlayerPortrait != null
+                ? defaultPlayerPortrait
+                : (node.IsPlayer ? node.Portrait : null);
+
+            // Para el NPC mantenemos el portrait del nodo (cada NPC tiene cara
+            // distinta) y usamos defaultNpcPortrait como fallback.
+            Sprite npcSprite = node.IsPlayer
+                ? defaultNpcPortrait
+                : (node.Portrait != null ? node.Portrait : defaultNpcPortrait);
 
             if (portraitImage != null)
             {
@@ -288,11 +301,36 @@ namespace DreamHacks.Dialogue
         private void SetSpeaker(string name, Sprite portrait)
         {
             if (speakerText != null) speakerText.text = name;
-            if (portraitImage != null)
+            if (portraitImage == null) return;
+
+            // Si quien habla es el protagonista y tenemos default, lo preferimos
+            // SIEMPRE sobre el portrait del asset: así los diálogos viejos que
+            // guardaban el cuadrado verde placeholder pasan a mostrar la cara
+            // nueva sin tocar cada DialogueAsset. Para los NPCs mantenemos el
+            // comportamiento anterior (asset-portrait > defaultNpcPortrait).
+            Sprite effective;
+            if (IsPlayerSpeaker(name) && defaultPlayerPortrait != null)
             {
-                portraitImage.sprite = portrait;
-                portraitImage.enabled = portrait != null;
+                effective = defaultPlayerPortrait;
             }
+            else
+            {
+                effective = portrait != null ? portrait : defaultNpcPortrait;
+            }
+
+            portraitImage.sprite = effective;
+            portraitImage.enabled = effective != null;
+        }
+
+        private bool IsPlayerSpeaker(string name)
+        {
+            if (string.IsNullOrEmpty(name) || playerSpeakerNames == null) return false;
+            for (int i = 0; i < playerSpeakerNames.Length; i++)
+            {
+                if (string.Equals(name, playerSpeakerNames[i], System.StringComparison.OrdinalIgnoreCase))
+                    return true;
+            }
+            return false;
         }
 
         private void StartTyping(string text)

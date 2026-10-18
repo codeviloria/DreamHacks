@@ -2911,8 +2911,14 @@ MonoBehaviour:
   panel: {fileID: 1174378698}
   portraitImage: {fileID: 1841289125}
   playerPortraitImage: {fileID: 1199221930}
-  defaultPlayerPortrait: {fileID: 21300000, guid: 58a38efad4fb278b7b912b688c5f77b2, type: 3}
+  defaultPlayerPortrait: {fileID: 21300000, guid: a224d5fc287afcdf8a3caf17141d0d0e, type: 3}
   defaultNpcPortrait: {fileID: 21300000, guid: c4e29f79475519383aa7a0d97aec90be, type: 3}
+  playerSpeakerNames:
+  - Iker
+  - Protagonista
+  - Player
+  - "T\xFA"
+  - Tu
   speakerText: {fileID: 1756035681}
   bodyText: {fileID: 136192963}
   choicesContainer: {fileID: 266698554}
