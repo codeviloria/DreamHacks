@@ -3,92 +3,62 @@ guid: 08d095f549d97e640bc3b066b8601f99
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5698635494862910764
-    second: FINAL_BOSS_JORGE_EL_CURIOSO_0
+      213: 7804127332843675332
+    second: FinalBoss_Idle_0
   - first:
-      213: -7070623655437437866
-    second: FINAL_BOSS_JORGE_EL_CURIOSO_1
+      213: 2449625824126700610
+    second: FinalBoss_Idle_1
   - first:
-      213: -5848711318480505050
-    second: FINAL_BOSS_JORGE_EL_CURIOSO_2
+      213: -2152813170112829034
+    second: FinalBoss_Idle_2
   - first:
-      213: -513488071149677646
-    second: FINAL_BOSS_JORGE_EL_CURIOSO_3
+      213: -6095150028092880265
+    second: FinalBoss_Idle_3
   - first:
-      213: 3763987351165236328
-    second: FINAL_BOSS_JORGE_EL_CURIOSO_4
+      213: -4339016411463457877
+    second: FinalBoss_Idle_4
   - first:
-      213: 3846583016283255896
-    second: FINAL_BOSS_JORGE_EL_CURIOSO_5
+      213: -9347087013042498
+    second: FinalBoss_Walk_0
   - first:
-      213: 7101929785687529000
-    second: FINAL_BOSS_JORGE_EL_CURIOSO_6
+      213: -3782622892088608385
+    second: FinalBoss_Walk_1
   - first:
-      213: 4025978671330148863
-    second: FINAL_BOSS_JORGE_EL_CURIOSO_7
+      213: -3500001195963173466
+    second: FinalBoss_Walk_2
   - first:
-      213: 4962070535809137125
-    second: FINAL_BOSS_JORGE_EL_CURIOSO_8
+      213: 5306681463784479759
+    second: FinalBoss_Fire_Prep
   - first:
-      213: -8419898692082107079
-    second: FINAL_BOSS_JORGE_EL_CURIOSO_9
+      213: 968353448331928522
+    second: FinalBoss_Fire_Cast
   - first:
-      213: -9101300819043165556
-    second: FINAL_BOSS_JORGE_EL_CURIOSO_10
+      213: -466282229038180280
+    second: FinalBoss_Fire_Release
   - first:
-      213: -562967927074116275
-    second: FINAL_BOSS_JORGE_EL_CURIOSO_11
+      213: -9103996818358626227
+    second: FinalBoss_Jump_Rise
   - first:
-      213: -3518792922387678379
-    second: FINAL_BOSS_JORGE_EL_CURIOSO_12
+      213: 8889019306752284027
+    second: FinalBoss_Jump_Apex
   - first:
-      213: 1303021141016506474
-    second: FINAL_BOSS_JORGE_EL_CURIOSO_13
+      213: -2944574079623230745
+    second: FinalBoss_Jump_Land
   - first:
-      213: -1361559030709963729
-    second: FINAL_BOSS_JORGE_EL_CURIOSO_14
+      213: -4379677091964386626
+    second: FinalBoss_Void_0
   - first:
-      213: 7483038607070496313
-    second: FINAL_BOSS_JORGE_EL_CURIOSO_15
+      213: 170402095009796451
+    second: FinalBoss_Void_1
   - first:
-      213: -3545232465013042409
-    second: FINAL_BOSS_JORGE_EL_CURIOSO_16
+      213: 4940741039376134934
+    second: FinalBoss_Void_2
   - first:
-      213: 1314252931631672359
-    second: FINAL_BOSS_JORGE_EL_CURIOSO_17
+      213: -8825430663271269927
+    second: FinalBoss_Roar
   - first:
-      213: 4521668738299382382
-    second: FINAL_BOSS_JORGE_EL_CURIOSO_18
-  - first:
-      213: 5709353315459807455
-    second: FINAL_BOSS_JORGE_EL_CURIOSO_19
-  - first:
-      213: 8714649092655275052
-    second: FINAL_BOSS_JORGE_EL_CURIOSO_20
-  - first:
-      213: 5835993352910546476
-    second: FINAL_BOSS_JORGE_EL_CURIOSO_21
-  - first:
-      213: -1116965042734908153
-    second: FINAL_BOSS_JORGE_EL_CURIOSO_22
-  - first:
-      213: -1859143823757042439
-    second: FINAL_BOSS_JORGE_EL_CURIOSO_23
-  - first:
-      213: -9162625917438297501
-    second: FINAL_BOSS_JORGE_EL_CURIOSO_24
-  - first:
-      213: 4235721590554717636
-    second: FINAL_BOSS_JORGE_EL_CURIOSO_25
-  - first:
-      213: -6743491812540892337
-    second: FINAL_BOSS_JORGE_EL_CURIOSO_26
-  - first:
-      213: -5954241503611220281
-    second: FINAL_BOSS_JORGE_EL_CURIOSO_27
-  - first:
-      213: 1743391988355945166
-    second: FINAL_BOSS_JORGE_EL_CURIOSO_28
+      213: -1450250534589847712
+    second: FinalBoss_Stun
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -108,7 +78,7 @@ TextureImporter:
     heightScale: 0.25
     normalMapFilter: 0
     flipGreenChannel: 0
-  isReadable: 0
+  isReadable: 1
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
@@ -121,7 +91,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -134,8 +104,8 @@ TextureImporter:
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
-  spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePivot: {x: 0.5, y: 0}
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -161,7 +131,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -174,7 +144,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -186,639 +156,419 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: FINAL_BOSS_JORGE_EL_CURIOSO_0
+      name: FinalBoss_Idle_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 634
-        width: 156
-        height: 202
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        y: 630
+        width: 160
+        height: 210
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c257cb73ace951f40800000000000000
-      internalID: 5698635494862910764
+      spriteID: c45e101076d44d6ce81d51c0e729de20
+      internalID: 7804127332843675332
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FINAL_BOSS_JORGE_EL_CURIOSO_1
+      name: FinalBoss_Idle_1
       rect:
         serializedVersion: 2
-        x: 159
-        y: 634
-        width: 157
-        height: 202
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 160
+        y: 630
+        width: 160
+        height: 210
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6547d254f3910ed90800000000000000
-      internalID: -7070623655437437866
+      spriteID: 420cb257b5d1fe21dae072084f0179b7
+      internalID: 2449625824126700610
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FINAL_BOSS_JORGE_EL_CURIOSO_2
+      name: FinalBoss_Idle_2
       rect:
         serializedVersion: 2
-        x: 319
-        y: 634
-        width: 162
-        height: 202
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 320
+        y: 630
+        width: 160
+        height: 210
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 627b92c2b0435dea0800000000000000
-      internalID: -5848711318480505050
+      spriteID: 9669a4efd3ab1fe2afd28425a365cac8
+      internalID: -2152813170112829034
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FINAL_BOSS_JORGE_EL_CURIOSO_3
+      name: FinalBoss_Idle_3
       rect:
         serializedVersion: 2
-        x: 479
-        y: 634
-        width: 162
-        height: 206
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 480
+        y: 630
+        width: 160
+        height: 210
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2b319b2e159bfd8f0800000000000000
-      internalID: -513488071149677646
+      spriteID: 77cacfca57ad69ab953deacd30eccd41
+      internalID: -6095150028092880265
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FINAL_BOSS_JORGE_EL_CURIOSO_4
+      name: FinalBoss_Idle_4
       rect:
         serializedVersion: 2
-        x: 654
-        y: 639
-        width: 146
-        height: 192
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 640
+        y: 630
+        width: 160
+        height: 210
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 864744dad8e5c3430800000000000000
-      internalID: 3763987351165236328
+      spriteID: ab63211890b7c8c318bf0bebacf5ad5b
+      internalID: -4339016411463457877
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FINAL_BOSS_JORGE_EL_CURIOSO_5
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 429
-        width: 161
-        height: 192
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 8543d9c8fdec16530800000000000000
-      internalID: 3846583016283255896
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FINAL_BOSS_JORGE_EL_CURIOSO_6
-      rect:
-        serializedVersion: 2
-        x: 159
-        y: 429
-        width: 162
-        height: 197
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 826dbaf238f1f8260800000000000000
-      internalID: 7101929785687529000
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FINAL_BOSS_JORGE_EL_CURIOSO_7
-      rect:
-        serializedVersion: 2
-        x: 324
-        y: 429
-        width: 157
-        height: 197
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ff1cee165462fd730800000000000000
-      internalID: 4025978671330148863
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FINAL_BOSS_JORGE_EL_CURIOSO_8
-      rect:
-        serializedVersion: 2
-        x: 479
-        y: 464
-        width: 321
-        height: 127
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5e9f555bcd0dcd440800000000000000
-      internalID: 4962070535809137125
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FINAL_BOSS_JORGE_EL_CURIOSO_9
+      name: FinalBoss_Walk_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 259
-        width: 101
-        height: 112
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        y: 420
+        width: 160
+        height: 210
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 93d7ba500c2862b80800000000000000
-      internalID: -8419898692082107079
+      spriteID: be26e7b6dfcadeffcf73349c12cbbe2f
+      internalID: -9347087013042498
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FINAL_BOSS_JORGE_EL_CURIOSO_10
+      name: FinalBoss_Walk_1
       rect:
         serializedVersion: 2
-        x: 169
-        y: 254
-        width: 152
-        height: 127
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 160
+        y: 420
+        width: 160
+        height: 210
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c8ad5f6302fa1b180800000000000000
-      internalID: -9101300819043165556
+      spriteID: 7f39cc55856c81cb705671b7277d2218
+      internalID: -3782622892088608385
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FINAL_BOSS_JORGE_EL_CURIOSO_11
+      name: FinalBoss_Walk_2
       rect:
         serializedVersion: 2
-        x: 319
-        y: 364
-        width: 7
-        height: 12
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 320
+        y: 420
+        width: 160
+        height: 210
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d4d2fce27afef28f0800000000000000
-      internalID: -562967927074116275
+      spriteID: a6352cc1747f6dcfedc4120cda46478d
+      internalID: -3500001195963173466
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FINAL_BOSS_JORGE_EL_CURIOSO_12
+      name: FinalBoss_Fire_Prep
       rect:
         serializedVersion: 2
-        x: 334
-        y: 239
-        width: 132
-        height: 157
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 480
+        y: 420
+        width: 160
+        height: 210
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 55b7ceefa7cba2fc0800000000000000
-      internalID: -3518792922387678379
+      spriteID: 0f1c06e1ac1ea5492b5974ec4d4d1330
+      internalID: 5306681463784479759
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FINAL_BOSS_JORGE_EL_CURIOSO_13
+      name: FinalBoss_Fire_Cast
       rect:
         serializedVersion: 2
-        x: 489
-        y: 234
-        width: 132
-        height: 167
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 640
+        y: 420
+        width: 160
+        height: 210
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a60fc15f2d2451210800000000000000
-      internalID: 1303021141016506474
+      spriteID: ca63d9a85448700d18dd75e8ff9bb893
+      internalID: 968353448331928522
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FINAL_BOSS_JORGE_EL_CURIOSO_14
-      rect:
-        serializedVersion: 2
-        x: 639
-        y: 239
-        width: 161
-        height: 152
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f24bec18645ca1de0800000000000000
-      internalID: -1361559030709963729
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FINAL_BOSS_JORGE_EL_CURIOSO_15
-      rect:
-        serializedVersion: 2
-        x: 99
-        y: 309
-        width: 62
-        height: 52
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 93688fe57f719d760800000000000000
-      internalID: 7483038607070496313
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FINAL_BOSS_JORGE_EL_CURIOSO_16
-      rect:
-        serializedVersion: 2
-        x: 474
-        y: 279
-        width: 7
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 71317b44bddcccec0800000000000000
-      internalID: -3545232465013042409
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FINAL_BOSS_JORGE_EL_CURIOSO_17
-      rect:
-        serializedVersion: 2
-        x: 449
-        y: 254
-        width: 27
-        height: 17
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 72cebeef31a2d3210800000000000000
-      internalID: 1314252931631672359
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FINAL_BOSS_JORGE_EL_CURIOSO_18
-      rect:
-        serializedVersion: 2
-        x: 629
-        y: 269
-        width: 7
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e6ac25ab2c130ce30800000000000000
-      internalID: 4521668738299382382
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FINAL_BOSS_JORGE_EL_CURIOSO_19
-      rect:
-        serializedVersion: 2
-        x: 549
-        y: 234
-        width: 7
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: fd83e294792bb3f40800000000000000
-      internalID: 5709353315459807455
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FINAL_BOSS_JORGE_EL_CURIOSO_20
-      rect:
-        serializedVersion: 2
-        x: 319
-        y: 4
-        width: 157
-        height: 207
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c2cd5e57d27a0f870800000000000000
-      internalID: 8714649092655275052
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FINAL_BOSS_JORGE_EL_CURIOSO_21
-      rect:
-        serializedVersion: 2
-        x: 504
-        y: 184
-        width: 17
-        height: 12
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c2626c7b80d9df050800000000000000
-      internalID: 5835993352910546476
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FINAL_BOSS_JORGE_EL_CURIOSO_22
-      rect:
-        serializedVersion: 2
-        x: 594
-        y: 164
-        width: 27
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 70db149263ebf70f0800000000000000
-      internalID: -1116965042734908153
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FINAL_BOSS_JORGE_EL_CURIOSO_23
+      name: FinalBoss_Fire_Release
       rect:
         serializedVersion: 2
         x: 0
-        y: 34
-        width: 306
-        height: 142
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        y: 210
+        width: 160
+        height: 210
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9fc999eda8ef236e0800000000000000
-      internalID: -1859143823757042439
+      spriteID: 48181a7dc86e87f9748baee96df81827
+      internalID: -466282229038180280
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FINAL_BOSS_JORGE_EL_CURIOSO_24
+      name: FinalBoss_Jump_Rise
       rect:
         serializedVersion: 2
-        x: 509
-        y: 169
-        width: 7
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 160
+        y: 210
+        width: 160
+        height: 210
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 36a7d451640d7d080800000000000000
-      internalID: -9162625917438297501
+      spriteID: 4d9872f5201ba881f5b3daf816d7feee
+      internalID: -9103996818358626227
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FINAL_BOSS_JORGE_EL_CURIOSO_25
+      name: FinalBoss_Jump_Apex
       rect:
         serializedVersion: 2
-        x: 574
-        y: 164
-        width: 12
-        height: 12
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 320
+        y: 210
+        width: 160
+        height: 210
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4cd6774485e48ca30800000000000000
-      internalID: 4235721590554717636
+      spriteID: 7b158fa4f6235c7b83925c963891b1ca
+      internalID: 8889019306752284027
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FINAL_BOSS_JORGE_EL_CURIOSO_26
+      name: FinalBoss_Jump_Land
       rect:
         serializedVersion: 2
-        x: 619
-        y: 164
-        width: 7
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 480
+        y: 210
+        width: 160
+        height: 210
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f4bbebfcced4a62a0800000000000000
-      internalID: -6743491812540892337
+      spriteID: e70a3cc179c522d7fc56ab3170190c63
+      internalID: -2944574079623230745
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FINAL_BOSS_JORGE_EL_CURIOSO_27
+      name: FinalBoss_Void_0
       rect:
         serializedVersion: 2
-        x: 484
-        y: 9
-        width: 157
-        height: 152
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 640
+        y: 210
+        width: 160
+        height: 210
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7ce8d5e36e84e5da0800000000000000
-      internalID: -5954241503611220281
+      spriteID: be028caee34238c3e56b3ff5a7268e42
+      internalID: -4379677091964386626
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FINAL_BOSS_JORGE_EL_CURIOSO_28
+      name: FinalBoss_Void_1
       rect:
         serializedVersion: 2
-        x: 509
-        y: 149
-        width: 27
-        height: 17
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 0
+        y: 0
+        width: 160
+        height: 210
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ec2d73ac6c5c13810800000000000000
-      internalID: 1743391988355945166
+      spriteID: 63910a76cd635d02cf2aa7fde7911c80
+      internalID: 170402095009796451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FinalBoss_Void_2
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 160
+        height: 210
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16733553cc0991441bbce974b60fa71d
+      internalID: 4940741039376134934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FinalBoss_Roar
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 160
+        height: 210
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d939e02592c58585a14629c250c1b3a9
+      internalID: -8825430663271269927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FinalBoss_Stun
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 0
+        width: 160
+        height: 210
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 60a77392d2acdfebd52166f1dcb16e30
+      internalID: -1450250534589847712
       vertices: []
       indices: 
       edges: []
@@ -837,35 +587,25 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      FINAL_BOSS_JORGE_EL_CURIOSO_0: 5698635494862910764
-      FINAL_BOSS_JORGE_EL_CURIOSO_1: -7070623655437437866
-      FINAL_BOSS_JORGE_EL_CURIOSO_10: -9101300819043165556
-      FINAL_BOSS_JORGE_EL_CURIOSO_11: -562967927074116275
-      FINAL_BOSS_JORGE_EL_CURIOSO_12: -3518792922387678379
-      FINAL_BOSS_JORGE_EL_CURIOSO_13: 1303021141016506474
-      FINAL_BOSS_JORGE_EL_CURIOSO_14: -1361559030709963729
-      FINAL_BOSS_JORGE_EL_CURIOSO_15: 7483038607070496313
-      FINAL_BOSS_JORGE_EL_CURIOSO_16: -3545232465013042409
-      FINAL_BOSS_JORGE_EL_CURIOSO_17: 1314252931631672359
-      FINAL_BOSS_JORGE_EL_CURIOSO_18: 4521668738299382382
-      FINAL_BOSS_JORGE_EL_CURIOSO_19: 5709353315459807455
-      FINAL_BOSS_JORGE_EL_CURIOSO_2: -5848711318480505050
-      FINAL_BOSS_JORGE_EL_CURIOSO_20: 8714649092655275052
-      FINAL_BOSS_JORGE_EL_CURIOSO_21: 5835993352910546476
-      FINAL_BOSS_JORGE_EL_CURIOSO_22: -1116965042734908153
-      FINAL_BOSS_JORGE_EL_CURIOSO_23: -1859143823757042439
-      FINAL_BOSS_JORGE_EL_CURIOSO_24: -9162625917438297501
-      FINAL_BOSS_JORGE_EL_CURIOSO_25: 4235721590554717636
-      FINAL_BOSS_JORGE_EL_CURIOSO_26: -6743491812540892337
-      FINAL_BOSS_JORGE_EL_CURIOSO_27: -5954241503611220281
-      FINAL_BOSS_JORGE_EL_CURIOSO_28: 1743391988355945166
-      FINAL_BOSS_JORGE_EL_CURIOSO_3: -513488071149677646
-      FINAL_BOSS_JORGE_EL_CURIOSO_4: 3763987351165236328
-      FINAL_BOSS_JORGE_EL_CURIOSO_5: 3846583016283255896
-      FINAL_BOSS_JORGE_EL_CURIOSO_6: 7101929785687529000
-      FINAL_BOSS_JORGE_EL_CURIOSO_7: 4025978671330148863
-      FINAL_BOSS_JORGE_EL_CURIOSO_8: 4962070535809137125
-      FINAL_BOSS_JORGE_EL_CURIOSO_9: -8419898692082107079
+      FinalBoss_Idle_0: 7804127332843675332
+      FinalBoss_Idle_1: 2449625824126700610
+      FinalBoss_Idle_2: -2152813170112829034
+      FinalBoss_Idle_3: -6095150028092880265
+      FinalBoss_Idle_4: -4339016411463457877
+      FinalBoss_Walk_0: -9347087013042498
+      FinalBoss_Walk_1: -3782622892088608385
+      FinalBoss_Walk_2: -3500001195963173466
+      FinalBoss_Fire_Prep: 5306681463784479759
+      FinalBoss_Fire_Cast: 968353448331928522
+      FinalBoss_Fire_Release: -466282229038180280
+      FinalBoss_Jump_Rise: -9103996818358626227
+      FinalBoss_Jump_Apex: 8889019306752284027
+      FinalBoss_Jump_Land: -2944574079623230745
+      FinalBoss_Void_0: -4379677091964386626
+      FinalBoss_Void_1: 170402095009796451
+      FinalBoss_Void_2: 4940741039376134934
+      FinalBoss_Roar: -8825430663271269927
+      FinalBoss_Stun: -1450250534589847712
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
