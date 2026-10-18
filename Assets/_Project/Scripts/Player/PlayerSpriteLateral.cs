@@ -27,6 +27,7 @@ namespace DreamHacks.PlayerNS
 
         private SpriteRenderer _sr;
         private Rigidbody2D _rb;
+        private PlayerAttack2D _attack;
         private DirectionFrames _lastFrames;
         private float _timer;
         private int _frameIndex;
@@ -35,11 +36,18 @@ namespace DreamHacks.PlayerNS
         {
             _sr = GetComponent<SpriteRenderer>();
             _rb = GetComponentInParent<Rigidbody2D>();
+            // PlayerAttack2D vive en el mismo GameObject (Visual).
+            _attack = GetComponent<PlayerAttack2D>();
             _lastFrames = right;
         }
 
         private void Update()
         {
+            // Mientras hay un ataque en curso, PlayerAttack2D es el dueño del
+            // sprite y del flipX; no debemos pisarlo o se ve un frame del
+            // sprite lateral en medio de la animación de disparo.
+            if (_attack != null && _attack.IsAttacking) return;
+
             float vx = _rb != null ? _rb.linearVelocity.x : 0f;
             bool moving = Mathf.Abs(vx) > moveThreshold;
 

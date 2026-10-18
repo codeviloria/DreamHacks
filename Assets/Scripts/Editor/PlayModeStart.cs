@@ -5,15 +5,15 @@ using UnityEditor.SceneManagement;
 namespace DreamHacks.EditorTools
 {
     /// <summary>
-    /// Fija Sandbox_Gino como escena de arranque de Play Mode cada vez que el
-    /// editor carga. Así, al pulsar Play, siempre comienza en el mapa top-down
-    /// aunque esté abierta Bioma1 (u otra). EditorSceneManager.playModeStartScene
-    /// no se guarda entre sesiones por sí solo, por eso hace falta este hook.
+    /// Fija la escena de arranque de Play Mode (EditorSceneManager.playModeStartScene).
+    /// La ruta se guarda en EditorPrefs y se puede cambiar desde el menú:
+    ///   DreamHacks > Start Scene > ...
+    /// Si está vacía, Unity usa la escena actualmente abierta (comportamiento por defecto).
     /// </summary>
     [InitializeOnLoad]
     public static class PlayModeStart
     {
-        private const string StartScenePath = "Assets/_Project/Scenes/_Sandbox/Sandbox_Gino.unity";
+        private const string PrefKey = "DreamHacks.PlayModeStartScenePath";
 
         static PlayModeStart()
         {
@@ -22,9 +22,47 @@ namespace DreamHacks.EditorTools
 
         private static void Apply()
         {
-            var start = AssetDatabase.LoadAssetAtPath<SceneAsset>(StartScenePath);
-            if (start != null) EditorSceneManager.playModeStartScene = start;
+            var path = EditorPrefs.GetString(PrefKey, "");
+            if (string.IsNullOrEmpty(path))
+            {
+                EditorSceneManager.playModeStartScene = null;
+                return;
+            }
+            var start = AssetDatabase.LoadAssetAtPath<SceneAsset>(path);
+            EditorSceneManager.playModeStartScene = start;
         }
+
+        private static void Set(string path)
+        {
+            EditorPrefs.SetString(PrefKey, path ?? "");
+            Apply();
+            UnityEngine.Debug.Log("[PlayModeStart] Arranque de Play Mode = " + (string.IsNullOrEmpty(path) ? "(escena activa)" : path));
+        }
+
+        [MenuItem("DreamHacks/Start Scene/Escena activa (default)")]
+        private static void SetNone() { Set(""); }
+        [MenuItem("DreamHacks/Start Scene/Escena activa (default)", true)]
+        private static bool ValNone() { Menu.SetChecked("DreamHacks/Start Scene/Escena activa (default)", EditorPrefs.GetString(PrefKey, "") == ""); return true; }
+
+        [MenuItem("DreamHacks/Start Scene/ComicIntro")]
+        private static void SetComic() { Set("Assets/_Project/Scenes/ComicIntro.unity"); }
+        [MenuItem("DreamHacks/Start Scene/ComicIntro", true)]
+        private static bool ValComic() { Menu.SetChecked("DreamHacks/Start Scene/ComicIntro", EditorPrefs.GetString(PrefKey, "") == "Assets/_Project/Scenes/ComicIntro.unity"); return true; }
+
+        [MenuItem("DreamHacks/Start Scene/Hospital")]
+        private static void SetHospital() { Set("Assets/MetroidvaniaBase/Scenes/Hospital.unity"); }
+        [MenuItem("DreamHacks/Start Scene/Hospital", true)]
+        private static bool ValHospital() { Menu.SetChecked("DreamHacks/Start Scene/Hospital", EditorPrefs.GetString(PrefKey, "") == "Assets/MetroidvaniaBase/Scenes/Hospital.unity"); return true; }
+
+        [MenuItem("DreamHacks/Start Scene/Sandbox_Gino")]
+        private static void SetSandbox() { Set("Assets/_Project/Scenes/_Sandbox/Sandbox_Gino.unity"); }
+        [MenuItem("DreamHacks/Start Scene/Sandbox_Gino", true)]
+        private static bool ValSandbox() { Menu.SetChecked("DreamHacks/Start Scene/Sandbox_Gino", EditorPrefs.GetString(PrefKey, "") == "Assets/_Project/Scenes/_Sandbox/Sandbox_Gino.unity"); return true; }
+
+        [MenuItem("DreamHacks/Start Scene/Bioma1")]
+        private static void SetBioma1() { Set("Assets/_Project/Scenes/Bioma1.unity"); }
+        [MenuItem("DreamHacks/Start Scene/Bioma1", true)]
+        private static bool ValBioma1() { Menu.SetChecked("DreamHacks/Start Scene/Bioma1", EditorPrefs.GetString(PrefKey, "") == "Assets/_Project/Scenes/Bioma1.unity"); return true; }
     }
 }
 #endif

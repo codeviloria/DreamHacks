@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8843931459734567540}
   - component: {fileID: 3058082591370150713}
   - component: {fileID: 4419185163412338298}
+  - component: {fileID: 4698131002189415170}
   m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 217106798828619224}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalPosition: {x: 0, y: -1.125, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -113,6 +114,32 @@ MonoBehaviour:
     frame1: {fileID: -5740164678915212769, guid: ce829b2db948db6348fe42b0b8298194, type: 3}
   walkFrameSeconds: 0.14
   moveThreshold: 0.1
+--- !u!114 &4698131002189415170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 217106798828619224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbcf89c3a985c0722b07342b596405c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DreamHacks.PlayerNS.PlayerAttack2D
+  attackFrames:
+  - {fileID: 2948435375490908477, guid: 29a84f3f833f5867484b05f2b914cee4, type: 3}
+  - {fileID: 6299579929696180975, guid: 29a84f3f833f5867484b05f2b914cee4, type: 3}
+  - {fileID: 3703385811135003631, guid: 29a84f3f833f5867484b05f2b914cee4, type: 3}
+  - {fileID: -490630493981185362, guid: 29a84f3f833f5867484b05f2b914cee4, type: 3}
+  - {fileID: -6893421579866588108, guid: 29a84f3f833f5867484b05f2b914cee4, type: 3}
+  postFrame: {fileID: -6156235192166649035, guid: 29a84f3f833f5867484b05f2b914cee4, type: 3}
+  frameSeconds: 0.07
+  releaseIndex: 4
+  attackCooldown: 0.1
+  projectilePrefab: {fileID: 4438608883986118971, guid: 6da9127f401b5e51d9abae81b24681e2, type: 3}
+  muzzle: {fileID: 0}
+  projectileSpeed: 10
+  visualRenderer: {fileID: 3058082591370150713}
 --- !u!1 &1388167807218207374
 GameObject:
   m_ObjectHideFlags: 0
@@ -159,6 +186,8 @@ GameObject:
   - component: {fileID: 8114482881194212642}
   - component: {fileID: 7751933845780283835}
   - component: {fileID: 8320918619020659845}
+  - component: {fileID: 3830609770214016225}
+  - component: {fileID: 502131516714584135}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -346,3 +375,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerRespawn
   killY: -10
+--- !u!114 &3830609770214016225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4353913319505393566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f607a0a49dbc354e8f46fa8087de923, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DreamHacks.Combate.VidaJugador
+  corazonesMax: 10
+  testKeys: 1
+  onCambio:
+    m_PersistentCalls:
+      m_Calls: []
+  onDanio:
+    m_PersistentCalls:
+      m_Calls: []
+  alMorir:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &502131516714584135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4353913319505393566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96222ac36275e0659a6c46b58b4a6148, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DreamHacks.Combate.Inventario
+  onCambio:
+    m_PersistentCalls:
+      m_Calls: []
