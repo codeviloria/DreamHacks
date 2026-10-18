@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/_Project/Scenes/MainMenu.unity
+    guid: 9f4d7b2a1e834c06b35920f8a12d6c41
+  - enabled: 1
     path: Assets/MetroidvaniaBase/Scenes/Hospital.unity
     guid: 21570ce880b6f38b9a27780da10f24cc
   - enabled: 1
