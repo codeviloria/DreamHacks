@@ -7,6 +7,8 @@ using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
 using DreamHacks.UI;
 using DreamHacks.Battle;
+using DreamHacks.World;
+using DreamHacks.PlayerNS;
 
 namespace DreamHacks.UI.Editor
 {
@@ -470,6 +472,23 @@ namespace DreamHacks.UI.Editor
             var fullHeartSprite = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/_Project/Art/UI/Hearts/corazon_lleno.png");
             var emptyHeartSprite = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/_Project/Art/UI/Hearts/corazon_vacio.png");
 
+            // Sprites de Hannah
+            var hannahPortrait = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/_Project/Art/Characters/Hannah/hannah_portrait.png");
+            var hannahFrontal = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/_Project/Art/Characters/Hannah/HANNAH_FRONTAL.png");
+            var hannahDetras = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/_Project/Art/Characters/Hannah/HANNAH_DETRAS.png");
+            var hannahIzq = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/_Project/Art/Characters/Hannah/HANNAH_IZQUIERDA.png");
+            var hannahDer = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/_Project/Art/Characters/Hannah/HANNAH_DERECHA.png");
+            var hannahAfk = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/_Project/Art/Characters/Hannah/HANNAH_AFK.png");
+
+            // Sprites de Enemigos
+            var goblinIdle = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/_Project/Art/Enemies/Goblin/Goblin_idle_v2.png");
+            var skelIdle = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/_Project/Art/Enemies/Skel/Skel_idle_v2.png");
+
+            // Sprites de Puzzles
+            var rockSprite = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/_Project/Art/Props/Puzzles/rock_forest.png");
+            var switchOffSprite = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/_Project/Art/Props/Puzzles/switch_off_forest.png");
+            var switchOnSprite = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/_Project/Art/Props/Puzzles/switch_on_forest.png");
+
             var forestWorldGo = new GameObject("Bosque_Mundo");
             forestWorldGo.transform.position = Vector3.zero;
             forestWorldGo.transform.localScale = new Vector3(2f, 2f, 1f);
@@ -546,6 +565,97 @@ namespace DreamHacks.UI.Editor
             swordSr.sprite = swordSprite;
             swordSr.sortingOrder = 8;
             swordGo.SetActive(false);
+
+            // Hannah (compañera que aparece tras derrotar al Slime inicial)
+            var hannahGo = new GameObject("Hannah");
+            hannahGo.transform.SetParent(forestWorldGo.transform, false);
+            hannahGo.transform.position = new Vector3(6.85f, 1.15f, 0f);
+            hannahGo.transform.localScale = new Vector3(0.5f, 0.5f, 1f);
+            var hannahSr = hannahGo.AddComponent<SpriteRenderer>();
+            hannahSr.sprite = hannahFrontal;
+            hannahSr.sortingOrder = 4;
+            var hannahFollower = hannahGo.AddComponent<HannahFollower>();
+            hannahFollower.SetSprites(hannahFrontal, hannahDetras, hannahIzq, hannahDer, hannahAfk);
+            hannahGo.SetActive(false);
+
+            // Contenedor de 8 enemigos distribuidos equitativamente
+            var enemiesContainer = new GameObject("Enemigos_Bosque");
+            enemiesContainer.transform.SetParent(forestWorldGo.transform, false);
+
+            System.Action<string, string, Sprite, Vector3> createEnemy = (eName, enemyId, spr, worldPos) =>
+            {
+                var enGo = new GameObject(eName);
+                enGo.transform.SetParent(enemiesContainer.transform, false);
+                enGo.transform.position = worldPos;
+                enGo.transform.localScale = new Vector3(0.65f, 0.65f, 1f);
+                var sr = enGo.AddComponent<SpriteRenderer>();
+                sr.sprite = spr;
+                sr.sortingOrder = 4;
+
+                var trGo = new GameObject("Trigger");
+                trGo.transform.SetParent(enGo.transform, false);
+                var col = trGo.AddComponent<CircleCollider2D>();
+                col.isTrigger = true;
+                col.radius = 0.55f;
+
+                var trigger = trGo.AddComponent<EncounterTrigger>();
+                var s = new SerializedObject(trigger);
+                var eProp = s.FindProperty("enemyId");
+                if (eProp != null) eProp.stringValue = enemyId;
+                var bProp = s.FindProperty("battleScene");
+                if (bProp != null) bProp.stringValue = "Battle";
+                s.ApplyModifiedPropertiesWithoutUndo();
+            };
+
+            // 8 Enemigos distribuidos por los senderos del bosque
+            createEnemy("Enemigo_Goblin_1", "Goblin", goblinIdle, new Vector3(-6.5f, 1.3f, 0f));
+            createEnemy("Enemigo_Goblin_2", "Goblin", goblinIdle, new Vector3(2.6f, 1.3f, 0f));
+            createEnemy("Enemigo_Goblin_3", "Goblin", goblinIdle, new Vector3(-7.2f, -1.3f, 0f));
+            createEnemy("Enemigo_Skel_1", "Skel", skelIdle, new Vector3(-3.2f, 3.6f, 0f));
+            createEnemy("Enemigo_Skel_2", "Skel", skelIdle, new Vector3(7.2f, -1.3f, 0f));
+            createEnemy("Enemigo_Skel_3", "Skel", skelIdle, new Vector3(-4.0f, -3.6f, 0f));
+            createEnemy("Enemigo_Slime_1", "Slime", slimeIdle0, new Vector3(0.0f, 3.6f, 0f));
+            createEnemy("Enemigo_Slime_2", "Slime", slimeIdle0, new Vector3(3.6f, -3.6f, 0f));
+
+            // Puzzle 1: Roca Empujable
+            var rockGo = new GameObject("Roca_Bosque");
+            rockGo.transform.SetParent(forestWorldGo.transform, false);
+            rockGo.transform.position = new Vector3(-3.2f, 1.3f, 0f);
+            rockGo.transform.localScale = new Vector3(0.6f, 0.6f, 1f);
+            var rockSr = rockGo.AddComponent<SpriteRenderer>();
+            rockSr.sprite = rockSprite;
+            rockSr.sortingOrder = 5;
+            var rockCol = rockGo.AddComponent<BoxCollider2D>();
+            rockCol.size = new Vector2(1.4f, 0.9f);
+            var pushableRock = rockGo.AddComponent<PushableRock>();
+
+            // Salida del bosque (barrera que se abre con el interruptor)
+            var exitBarrierGo = new GameObject("Barrera_Salida_Bosque");
+            exitBarrierGo.transform.SetParent(forestWorldGo.transform, false);
+            exitBarrierGo.transform.position = new Vector3(-1.2f, -4.8f, 0f);
+            var exitCol = exitBarrierGo.AddComponent<BoxCollider2D>();
+            exitCol.size = new Vector2(2.5f, 0.8f);
+
+            // Puzzle 2: Interruptor del Bosque
+            var switchGo = new GameObject("Interruptor_Bosque");
+            switchGo.transform.SetParent(forestWorldGo.transform, false);
+            switchGo.transform.position = new Vector3(-7.2f, -3.6f, 0f);
+            switchGo.transform.localScale = new Vector3(0.7f, 0.7f, 1f);
+            var switchSr = switchGo.AddComponent<SpriteRenderer>();
+            switchSr.sprite = switchOffSprite;
+            switchSr.sortingOrder = 3;
+            var switchCol = switchGo.AddComponent<CircleCollider2D>();
+            switchCol.isTrigger = true;
+            switchCol.radius = 0.65f;
+            var forestSwitch = switchGo.AddComponent<ForestSwitch>();
+            var switchSo = new SerializedObject(forestSwitch);
+            var sOffProp = switchSo.FindProperty("switchOffSprite");
+            if (sOffProp != null) sOffProp.objectReferenceValue = switchOffSprite;
+            var sOnProp = switchSo.FindProperty("switchOnSprite");
+            if (sOnProp != null) sOnProp.objectReferenceValue = switchOnSprite;
+            var barrierProp = switchSo.FindProperty("exitBarrierObject");
+            if (barrierProp != null) barrierProp.objectReferenceValue = exitBarrierGo;
+            switchSo.ApplyModifiedPropertiesWithoutUndo();
 
             forestWorldGo.SetActive(false);
 
@@ -1028,6 +1138,11 @@ namespace DreamHacks.UI.Editor
             so.FindProperty("portraitImage").objectReferenceValue = portraitImg;
             so.FindProperty("phonePortraitSprite").objectReferenceValue = phoneSprite;
             so.FindProperty("ikerPortraitSprite").objectReferenceValue = ikerSprite;
+            so.FindProperty("hannahPortraitSprite").objectReferenceValue = hannahPortrait;
+            so.FindProperty("hannahObject").objectReferenceValue = hannahGo;
+            so.FindProperty("hannahFollower").objectReferenceValue = hannahFollower;
+            so.FindProperty("pushableRock").objectReferenceValue = pushableRock;
+            so.FindProperty("forestSwitch").objectReferenceValue = forestSwitch;
             so.FindProperty("speakerText").objectReferenceValue = speakerTxt;
             so.FindProperty("bodyText").objectReferenceValue = bodyTxt;
             so.FindProperty("continuePrompt").objectReferenceValue = promptGo;

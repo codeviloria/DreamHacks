@@ -164,6 +164,15 @@ namespace DreamHacks.UI
         [Header("Portraits")]
         [SerializeField] private Sprite phonePortraitSprite;
         [SerializeField] private Sprite ikerPortraitSprite;
+        [SerializeField] private Sprite hannahPortraitSprite;
+
+        [Header("Hannah & Acompañante")]
+        [SerializeField] private GameObject hannahObject;
+        [SerializeField] private HannahFollower hannahFollower;
+
+        [Header("Puzzles del Bosque")]
+        [SerializeField] private PushableRock pushableRock;
+        [SerializeField] private ForestSwitch forestSwitch;
 
         [Header("Contenido Inicial")]
         [TextArea(2, 4)]
@@ -195,6 +204,9 @@ namespace DreamHacks.UI
         private float _slimeAnimTimer;
         private int _slimeIdleFrameIndex;
         private bool _isSwordFloatingAboveIker;
+        private bool _hannahMet;
+        private bool _forestRockMoved;
+        private bool _forestSwitchActivated;
 
         // Estado de tareas
         private readonly bool[] _tasksCompleted = new bool[3];
@@ -478,11 +490,31 @@ namespace DreamHacks.UI
             if (binaryOverlayImage != null) binaryOverlayImage.gameObject.SetActive(false);
             if (shutterContainer != null) shutterContainer.SetActive(false);
 
-            if (BattleState.PendingDestroyEnemyName == "Slime_Bosque" ||
-                (slimeObject != null && !string.IsNullOrEmpty(BattleState.PendingDestroyEnemyName)))
+            bool justDefeatedInitialSlime = false;
+            string enemyToDestroy = BattleState.PendingDestroyEnemyName;
+
+            if (enemyToDestroy == "Slime_Bosque" ||
+                (slimeObject != null && !string.IsNullOrEmpty(enemyToDestroy) && enemyToDestroy == slimeObject.name))
             {
                 _slimeDefeated = true;
                 if (slimeObject != null) slimeObject.SetActive(false);
+                BattleState.PendingDestroyEnemyName = null;
+                justDefeatedInitialSlime = true;
+            }
+            else if (!string.IsNullOrEmpty(enemyToDestroy))
+            {
+                if (forestRoot != null)
+                {
+                    var allChildren = forestRoot.GetComponentsInChildren<Transform>(true);
+                    for (int i = 0; i < allChildren.Length; i++)
+                    {
+                        if (allChildren[i].gameObject.name == enemyToDestroy)
+                        {
+                            allChildren[i].gameObject.SetActive(false);
+                            break;
+                        }
+                    }
+                }
                 BattleState.PendingDestroyEnemyName = null;
             }
 
@@ -544,6 +576,180 @@ namespace DreamHacks.UI
                     }
                 }
             }
+
+            HookForestPuzzles();
+
+            if (justDefeatedInitialSlime && !_hannahMet)
+            {
+                StartCoroutine(HannahEncounterCutsceneRoutine(dest));
+            }
+            else if (_hannahMet)
+            {
+                if (hannahObject != null)
+                {
+                    hannahObject.transform.position = dest + new Vector3(-0.65f, 0f, 0f);
+                    hannahObject.SetActive(true);
+                    if (hannahFollower != null && playerObject != null)
+                    {
+                        hannahFollower.Target = playerObject.transform;
+                        hannahFollower.enabled = true;
+                    }
+                }
+                ShowForestTasks();
+            }
+        }
+
+        private IEnumerator HannahEncounterCutsceneRoutine(Vector3 playerPos)
+        {
+            _isBusyWithAction = true;
+            GameSignals.InputBlocked = true;
+
+            yield return new WaitForSeconds(0.35f);
+
+            if (hannahObject != null)
+            {
+                hannahObject.transform.position = playerPos + new Vector3(0.85f, -0.1f, 0f);
+                hannahObject.SetActive(true);
+            }
+
+            var encounterLines = new DialogueEntry[]
+            {
+                new DialogueEntry
+                {
+                    speaker = "Hannah",
+                    portrait = hannahPortraitSprite,
+                    text = "¡Oye! ¿Tú también caíste aquí?"
+                },
+                new DialogueEntry
+                {
+                    speaker = "Iker",
+                    portrait = ikerPortraitSprite,
+                    text = "¿Eres humana? Estaba en mi pasillo y de repente peleo con monstruos."
+                },
+                new DialogueEntry
+                {
+                    speaker = "Hannah",
+                    portrait = hannahPortraitSprite,
+                    text = "Yo preparaba el desayuno y... ¡pum, píxeles! Soy Hannah."
+                },
+                new DialogueEntry
+                {
+                    speaker = "Iker",
+                    portrait = ikerPortraitSprite,
+                    text = "Soy Iker."
+                },
+                new DialogueEntry
+                {
+                    speaker = "Hannah",
+                    portrait = hannahPortraitSprite,
+                    text = "¿Iker? Me suena ese nombre... Una voz dijo que avancemos. Juntos saldremos más rápido."
+                },
+                new DialogueEntry
+                {
+                    speaker = "Iker",
+                    portrait = ikerPortraitSprite,
+                    text = "Tiene sentido. Mejor que morir solo. Vamos."
+                }
+            };
+
+            bool dialogueDone = false;
+            StartDialogueQueue(encounterLines, () => { dialogueDone = true; });
+            while (!dialogueDone)
+                yield return null;
+
+            _hannahMet = true;
+
+            if (hannahFollower != null && playerObject != null)
+            {
+                hannahFollower.Target = playerObject.transform;
+                hannahFollower.enabled = true;
+            }
+
+            ShowForestTasks();
+
+            _isBusyWithAction = false;
+            GameSignals.InputBlocked = false;
+        }
+
+        private void ShowForestTasks()
+        {
+            if (tasksPanel == null) return;
+
+            tasksPanel.SetActive(true);
+            tasksPanel.transform.SetAsLastSibling();
+
+            if (tasksHeaderText != null)
+                tasksHeaderText.text = "Tareas del Bosque:";
+
+            if (taskItemTexts != null)
+            {
+                if (taskItemTexts.Length > 0 && taskItemTexts[0] != null)
+                {
+                    taskItemTexts[0].text = "1. Mueve la roca";
+                    taskItemTexts[0].color = _forestRockMoved ? new Color(0.55f, 0.85f, 0.62f, 0.9f) : new Color(0.92f, 0.95f, 1f, 1f);
+                }
+                if (taskItemTexts.Length > 1 && taskItemTexts[1] != null)
+                {
+                    taskItemTexts[1].text = "2. Presiona el interruptor y busca la salida";
+                    taskItemTexts[1].color = _forestSwitchActivated ? new Color(0.55f, 0.85f, 0.62f, 0.9f) : new Color(0.92f, 0.95f, 1f, 1f);
+                }
+            }
+
+            if (taskRowObjects != null)
+            {
+                if (taskRowObjects.Length > 0 && taskRowObjects[0] != null)
+                {
+                    taskRowObjects[0].SetActive(true);
+                    var cg = taskRowObjects[0].GetComponent<CanvasGroup>();
+                    if (cg != null) cg.alpha = _forestRockMoved ? 0.4f : 1f;
+                }
+                if (taskRowObjects.Length > 1 && taskRowObjects[1] != null)
+                {
+                    taskRowObjects[1].SetActive(true);
+                    var cg = taskRowObjects[1].GetComponent<CanvasGroup>();
+                    if (cg != null) cg.alpha = _forestSwitchActivated ? 0.4f : 1f;
+                }
+                if (taskRowObjects.Length > 2 && taskRowObjects[2] != null)
+                {
+                    taskRowObjects[2].SetActive(false);
+                }
+            }
+
+            if (taskStrikeBars != null)
+            {
+                if (taskStrikeBars.Length > 0 && taskStrikeBars[0] != null)
+                    taskStrikeBars[0].SetActive(_forestRockMoved);
+                if (taskStrikeBars.Length > 1 && taskStrikeBars[1] != null)
+                    taskStrikeBars[1].SetActive(_forestSwitchActivated);
+                if (taskStrikeBars.Length > 2 && taskStrikeBars[2] != null)
+                    taskStrikeBars[2].SetActive(false);
+            }
+        }
+
+        private void HookForestPuzzles()
+        {
+            if (pushableRock != null)
+            {
+                pushableRock.OnRockPushed -= HandleRockPushed;
+                pushableRock.OnRockPushed += HandleRockPushed;
+            }
+            if (forestSwitch != null)
+            {
+                forestSwitch.OnSwitchActivated -= HandleSwitchActivated;
+                forestSwitch.OnSwitchActivated += HandleSwitchActivated;
+            }
+        }
+
+        private void HandleRockPushed()
+        {
+            _forestRockMoved = true;
+            StartCoroutine(CrossOutAndHideTaskRoutine(0));
+        }
+
+        private void HandleSwitchActivated()
+        {
+            _forestSwitchActivated = true;
+            StartCoroutine(CrossOutAndHideTaskRoutine(1));
         }
 
         private void Update()
