@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using DreamHacks.World;
+using DreamHacks.Battle;
+using DreamHacks.PlayerNS;
 
 namespace DreamHacks.UI
 {
@@ -432,7 +434,116 @@ namespace DreamHacks.UI
 
         private void Start()
         {
+            if (CheckReturningFromBattle())
+                return;
+
             StartCoroutine(CutsceneSequenceRoutine());
+        }
+
+        private bool CheckReturningFromBattle()
+        {
+            if (BattleState.InBattle ||
+                (!string.IsNullOrEmpty(BattleState.ReturnScene) && BattleState.ReturnScene.Contains("IntroCutscene")) ||
+                !string.IsNullOrEmpty(BattleState.PendingDestroyEnemyName))
+            {
+                ResumeForestAfterBattle();
+                return true;
+            }
+            return false;
+        }
+
+        private void ResumeForestAfterBattle()
+        {
+            StopAllCoroutines();
+
+            _isInLivingRoom = false;
+            _isInForest = true;
+            _slimeCutsceneTriggered = true;
+            _hasSword = true;
+            _isDecisionOpen = false;
+            _isBusyWithAction = false;
+            _isGameplayActive = true;
+            _isTransitioningRooms = false;
+            GameSignals.InputBlocked = false;
+
+            if (bedroomRoot != null) bedroomRoot.SetActive(false);
+            if (livingRoomRoot != null) livingRoomRoot.SetActive(false);
+            if (forestRoot != null) forestRoot.SetActive(true);
+
+            if (phraseCanvasGroup != null) phraseCanvasGroup.alpha = 0f;
+            if (dialoguePanel != null) dialoguePanel.SetActive(false);
+            if (systemMessagePanel != null) systemMessagePanel.SetActive(false);
+            if (decisionPanel != null) decisionPanel.SetActive(false);
+            if (interactionHintPanel != null) interactionHintPanel.SetActive(false);
+            if (binaryOverlayImage != null) binaryOverlayImage.gameObject.SetActive(false);
+            if (shutterContainer != null) shutterContainer.SetActive(false);
+
+            if (BattleState.PendingDestroyEnemyName == "Slime_Bosque" ||
+                (slimeObject != null && !string.IsNullOrEmpty(BattleState.PendingDestroyEnemyName)))
+            {
+                _slimeDefeated = true;
+                if (slimeObject != null) slimeObject.SetActive(false);
+                BattleState.PendingDestroyEnemyName = null;
+            }
+
+            Vector3 dest = BattleState.VolverAInicio ? forestPlayerSpawnPos : BattleState.ReturnPosition;
+            if (dest == Vector3.zero) dest = forestPlayerSpawnPos;
+            BattleState.VolverAInicio = false;
+            BattleState.ReturnPosition = Vector3.zero;
+            BattleState.ReturnScene = null;
+
+            if (playerObject != null)
+            {
+                playerObject.transform.position = dest;
+                playerObject.transform.localScale = forestPlayerScale;
+                var cols = playerObject.GetComponents<Collider2D>();
+                for (int i = 0; i < cols.Length; i++)
+                    cols[i].enabled = true;
+
+                var rb = playerObject.GetComponent<Rigidbody2D>();
+                if (rb != null)
+                {
+                    rb.position = dest;
+                    rb.linearVelocity = Vector2.zero;
+                }
+
+                var pc = playerObject.GetComponent<PlayerController>();
+                if (pc != null) pc.MoveSpeed = 2.6f;
+
+                playerObject.SetActive(true);
+            }
+
+            if (floatingSwordObject != null)
+                floatingSwordObject.SetActive(false);
+
+            if (_mainCamera != null)
+            {
+                _mainCamera.orthographicSize = 2.6f;
+                _mainCamera.backgroundColor = Color.black;
+                _mainCamera.clearFlags = CameraClearFlags.SolidColor;
+                float clampedX = Mathf.Clamp(dest.x, -5.5f, 5.5f);
+                float clampedY = Mathf.Clamp(dest.y, -2.45f, 2.45f);
+                _cameraOriginalPos = new Vector3(clampedX, clampedY, -10f);
+                _mainCamera.transform.position = _cameraOriginalPos;
+            }
+
+            if (heartsPanel != null)
+            {
+                heartsPanel.SetActive(true);
+                heartsPanel.transform.SetAsLastSibling();
+                if (heartImages != null)
+                {
+                    for (int i = 0; i < heartImages.Length; i++)
+                    {
+                        if (heartImages[i] != null)
+                        {
+                            heartImages[i].gameObject.SetActive(true);
+                            heartImages[i].transform.localScale = Vector3.one;
+                            if (fullHeartSprite != null) heartImages[i].sprite = fullHeartSprite;
+                        }
+                    }
+                }
+            }
         }
 
         private void Update()
@@ -480,12 +591,12 @@ namespace DreamHacks.UI
 
         private void LateUpdate()
         {
-            // En el Bosque, la cámara sigue suavemente a Iker dentro de los límites del mapa
+            // En el Bosque, la cámara sigue suavemente a Iker con zoom aumentado
             if (_isInForest && _mainCamera != null && playerObject != null)
             {
                 Vector3 targetPos = playerObject.transform.position;
-                float clampedX = Mathf.Clamp(targetPos.x, -4.2f, 4.2f);
-                float clampedY = Mathf.Clamp(targetPos.y, -1.6f, 1.6f);
+                float clampedX = Mathf.Clamp(targetPos.x, -5.5f, 5.5f);
+                float clampedY = Mathf.Clamp(targetPos.y, -2.45f, 2.45f);
                 Vector3 desiredCam = new Vector3(clampedX, clampedY, -10f);
                 _cameraOriginalPos = Vector3.Lerp(_cameraOriginalPos, desiredCam, Time.deltaTime * 7f);
                 if (_shakeMagnitude <= 0.01f)
@@ -1469,6 +1580,9 @@ namespace DreamHacks.UI
                 var rb = playerObject.GetComponent<Rigidbody2D>();
                 if (rb != null) rb.linearVelocity = Vector2.zero;
 
+                var pc = playerObject.GetComponent<PlayerController>();
+                if (pc != null) pc.MoveSpeed = 2.6f;
+
                 playerObject.SetActive(true);
             }
 
@@ -1485,9 +1599,11 @@ namespace DreamHacks.UI
 
             if (_mainCamera != null)
             {
-                _mainCamera.orthographicSize = 3.8f;
-                float clampedX = Mathf.Clamp(forestPlayerSpawnPos.x, -4.2f, 4.2f);
-                float clampedY = Mathf.Clamp(forestPlayerSpawnPos.y, -1.6f, 1.6f);
+                _mainCamera.orthographicSize = 2.6f;
+                _mainCamera.backgroundColor = Color.black;
+                _mainCamera.clearFlags = CameraClearFlags.SolidColor;
+                float clampedX = Mathf.Clamp(forestPlayerSpawnPos.x, -5.5f, 5.5f);
+                float clampedY = Mathf.Clamp(forestPlayerSpawnPos.y, -2.45f, 2.45f);
                 _cameraOriginalPos = new Vector3(clampedX, clampedY, -10f);
                 _mainCamera.transform.position = _cameraOriginalPos;
             }
@@ -1569,19 +1685,26 @@ namespace DreamHacks.UI
                 }
             }
 
-            // 2. Una vez recibida la espada, permitir atacar y eliminar al Slime con [E], [Espacio] o Clic
+            // 2. Una vez recibida la espada, si el jugador se acerca o colisiona con el Slime -> entra inmediatamente en combate (escena Battle)
             if (_hasSword && !_slimeDefeated && slimeObject != null && slimeObject.activeSelf)
             {
                 float distToSlime = Vector2.Distance(p, slimeObject.transform.position);
-                if (distToSlime <= 1.75f)
+                if (distToSlime <= 0.85f)
                 {
-                    ShowInteractionHint("[Espacio / E] Atacar con la espada");
+                    StartSlimeBattleEncounter();
+                    return;
+                }
+
+                if (distToSlime <= 1.8f)
+                {
+                    ShowInteractionHint("[Espacio / E o Tocar] Luchar contra el Slime");
                     bool attackPressed = (kb != null && (kb.spaceKey.wasPressedThisFrame || kb.eKey.wasPressedThisFrame || kb.enterKey.wasPressedThisFrame))
                                       || (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
                                       || (Gamepad.current != null && Gamepad.current.buttonSouth.wasPressedThisFrame);
                     if (attackPressed)
                     {
-                        StartCoroutine(AttackAndDefeatSlimeRoutine());
+                        StartSlimeBattleEncounter();
+                        return;
                     }
                 }
                 else
@@ -1901,58 +2024,23 @@ namespace DreamHacks.UI
                 systemMessagePanel.SetActive(false);
         }
 
-        private IEnumerator AttackAndDefeatSlimeRoutine()
+        public void StartSlimeBattleEncounter()
         {
+            if (BattleState.InBattle || _slimeDefeated) return;
+
+            HideInteractionHint();
             _isBusyWithAction = true;
             GameSignals.InputBlocked = true;
-            HideInteractionHint();
 
-            if (playerObject != null && floatingSwordObject != null)
-            {
-                // Mostrar corte de espada frente a Iker hacia el Slime
-                Vector3 dir = (slimeObject.transform.position - playerObject.transform.position).normalized;
-                floatingSwordObject.SetActive(true);
-                floatingSwordObject.transform.localScale = new Vector3(0.85f, 0.85f, 1f);
+            Vector3 playerPos = playerObject != null ? playerObject.transform.position : forestPlayerSpawnPos;
+            BattleState.StartEncounter("Slime", "Slime_Bosque", "IntroCutscene", playerPos);
+            SceneManager.LoadScene("Battle");
+        }
 
-                float slashTime = 0.22f;
-                float t = 0f;
-                while (t < slashTime)
-                {
-                    t += Time.deltaTime;
-                    float p = Mathf.Clamp01(t / slashTime);
-                    float angle = Mathf.Lerp(-55f, 55f, p);
-                    floatingSwordObject.transform.position = playerObject.transform.position + dir * 0.45f;
-                    floatingSwordObject.transform.rotation = Quaternion.Euler(0f, 0f, angle - 90f);
-                    yield return null;
-                }
-
-                floatingSwordObject.SetActive(false);
-                floatingSwordObject.transform.rotation = Quaternion.identity;
-            }
-
-            // Efecto de impacto y eliminación del Slime
-            if (slimeObject != null)
-            {
-                Vector3 origPos = slimeObject.transform.position;
-                Vector3 origScale = slimeObject.transform.localScale;
-                float hitDur = 0.38f;
-                float t = 0f;
-                while (t < hitDur)
-                {
-                    t += Time.deltaTime;
-                    float p = Mathf.Clamp01(t / hitDur);
-                    if (slimeSpriteRenderer != null)
-                        slimeSpriteRenderer.color = new Color(1f, 0.4f, 0.4f, 1f - p);
-                    slimeObject.transform.position = origPos + new Vector3(Mathf.Sin(t * 60f) * 0.08f, -0.25f * p, 0f);
-                    slimeObject.transform.localScale = Vector3.Lerp(origScale, new Vector3(1.8f, 0.2f, 1f), p);
-                    yield return null;
-                }
-                slimeObject.SetActive(false);
-            }
-
-            _slimeDefeated = true;
-            _isBusyWithAction = false;
-            GameSignals.InputBlocked = false;
+        private IEnumerator AttackAndDefeatSlimeRoutine()
+        {
+            StartSlimeBattleEncounter();
+            yield break;
         }
 
         // =====================================================================

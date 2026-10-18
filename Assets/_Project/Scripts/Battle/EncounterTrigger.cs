@@ -30,7 +30,15 @@ namespace DreamHacks.Battle
             if (!other.CompareTag("Player")) return;
 
             string id = string.IsNullOrEmpty(enemyId) ? "Slime" : enemyId;
-            string goName = transform.parent != null ? transform.parent.name : gameObject.name;
+            string goName = gameObject.name;
+            if (transform.parent != null &&
+                transform.parent.name != "Enemigos" &&
+                transform.parent.name != "Bosque_Mundo" &&
+                !transform.parent.name.StartsWith("Grid") &&
+                !transform.parent.name.StartsWith("Mapa"))
+            {
+                goName = transform.parent.name;
+            }
 
             BattleState.StartEncounter(
                 id,

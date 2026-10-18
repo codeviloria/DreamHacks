@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
 using DreamHacks.UI;
+using DreamHacks.Battle;
 
 namespace DreamHacks.UI.Editor
 {
@@ -522,6 +523,20 @@ namespace DreamHacks.UI.Editor
             var slimeSr = slimeGo.AddComponent<SpriteRenderer>();
             slimeSr.sprite = slimeIdle0;
             slimeSr.sortingOrder = 4;
+
+            // Trigger para iniciar combate por turnos (escena Battle) al colisionar con el Slime
+            var slimeTriggerGo = new GameObject("Trigger");
+            slimeTriggerGo.transform.SetParent(slimeGo.transform, false);
+            var slimeTriggerCol = slimeTriggerGo.AddComponent<CircleCollider2D>();
+            slimeTriggerCol.isTrigger = true;
+            slimeTriggerCol.radius = 0.65f;
+            var encTrigger = slimeTriggerGo.AddComponent<EncounterTrigger>();
+            var encSo = new SerializedObject(encTrigger);
+            var enemyIdProp = encSo.FindProperty("enemyId");
+            if (enemyIdProp != null) enemyIdProp.stringValue = "Slime";
+            var battleSceneProp = encSo.FindProperty("battleScene");
+            if (battleSceneProp != null) battleSceneProp.stringValue = "Battle";
+            encSo.ApplyModifiedPropertiesWithoutUndo();
 
             // Espada Flotante (inicialmente inactiva; aparece arriba de Iker y luego Iker la absorbe)
             var swordGo = new GameObject("Espada_Flotante");

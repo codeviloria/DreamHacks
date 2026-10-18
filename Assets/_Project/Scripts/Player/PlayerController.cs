@@ -14,7 +14,13 @@ namespace DreamHacks.PlayerNS
     public class PlayerController : MonoBehaviour
     {
         // Velocidad en unidades/segundo. 1 unidad = 1 tile = 16 px.
-        [SerializeField] private float moveSpeed = 4.5f;
+        [SerializeField] private float moveSpeed = 2.6f;
+
+        public float MoveSpeed
+        {
+            get => moveSpeed;
+            set => moveSpeed = value;
+        }
 
         // Última dirección mirada. Se expone a otros sistemas (interacción,
         // futuras animaciones) para saber hacia dónde apunta el player.

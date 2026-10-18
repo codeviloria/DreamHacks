@@ -21,6 +21,7 @@ namespace DreamHacks.Battle
         [SerializeField] private Sprite enemySprite;
         [SerializeField] private Sprite enemyGoblin;
         [SerializeField] private Sprite enemySkel;
+        [SerializeField] private Sprite enemySlime;
 
         [Header("Sprites de corazon rojo (Iker)")]
         [SerializeField] private Sprite corazonLleno;
@@ -176,6 +177,7 @@ namespace DreamHacks.Battle
             if (string.IsNullOrEmpty(id)) return;
             if (id.StartsWith("Goblin")) SetEnemySprite(enemyGoblin);
             else if (id.StartsWith("Skel")) SetEnemySprite(enemySkel);
+            else if (id.StartsWith("Slime")) SetEnemySprite(enemySlime);
         }
 
         public void AttachVidas(IVida iker, IVida enemy)

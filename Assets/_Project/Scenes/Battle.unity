@@ -202,6 +202,7 @@ MonoBehaviour:
   enemySprite: {fileID: 0}
   enemyGoblin: {fileID: 5099651565434148650, guid: 12d4b2f3b5b3d5cb3914d5d66801ac94, type: 3}
   enemySkel: {fileID: -6985388807005889158, guid: bcdb1da0178c3d31d9d355879b867403, type: 3}
+  enemySlime: {fileID: 4640211360920796901, guid: 79b9de9961274df4c8d9027cc471e6f1, type: 3}
   corazonLleno: {fileID: 1545607519109388259, guid: 1620fbae9ecde3025b17eaa9f4a8ab6b, type: 3}
   corazonTresCuartos: {fileID: -2531121244305918430, guid: e56fb1c70c9f1255e823ec2f9d807d76, type: 3}
   corazonMedio: {fileID: 5855391163010157645, guid: 3fa3404ae036b0273a197cb96289d49f, type: 3}

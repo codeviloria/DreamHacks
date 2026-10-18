@@ -182,7 +182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a0aa43c5c9cde06e8475a87a890111c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DreamHacks.PlayerNS.PlayerController
-  moveSpeed: 4.5
+  moveSpeed: 2.6
 --- !u!114 &7565114272146192774
 MonoBehaviour:
   m_ObjectHideFlags: 0
