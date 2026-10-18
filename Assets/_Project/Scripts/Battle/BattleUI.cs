@@ -54,6 +54,14 @@ namespace DreamHacks.Battle
         public PocionMenu PocionMenu { get; private set; }
         public ComboQTE ComboQTE { get; private set; }
 
+        // Accesores a los sprites de corazón rojo (Iker). Los usa BattleManager
+        // para pasarle los assets al cuadro de victoria del overworld.
+        public Sprite CorazonLleno => corazonLleno;
+        public Sprite CorazonTresCuartos => corazonTresCuartos;
+        public Sprite CorazonMedio => corazonMedio;
+        public Sprite CorazonUnCuarto => corazonUnCuarto;
+        public Sprite CorazonVacio => corazonVacio;
+
         private Color _ikerColor;
         private Color _enemyColor;
 

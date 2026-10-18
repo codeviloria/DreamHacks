@@ -16,6 +16,12 @@ namespace DreamHacks.Battle
 
         private void Start()
         {
+            // Red de seguridad: al volver de una batalla el player debe poder
+            // moverse. Un RoomCameraController interrumpido por el salto a Battle
+            // pudo dejar GameSignals.InputBlocked en true (es static y no se
+            // resetea al cambiar de escena), lo que congelaría al player.
+            DreamHacks.World.GameSignals.InputBlocked = false;
+
             // Mover al Player a la posición de retorno.
             Vector3? destino = null;
             if (BattleState.VolverAInicio) destino = posicionInicio;
@@ -45,6 +51,16 @@ namespace DreamHacks.Battle
                 }
                 BattleState.PendingDestroyEnemyName = null;
             }
+
+            // Contador de pociones del overworld (se crea solo una vez por escena).
+            // Se refresca solo vía Inventario.OnCambioEstatico.
+            if (FindAnyObjectByType<DreamHacks.UI.InventarioHUD>() == null)
+                DreamHacks.UI.InventarioHUD.Crear();
+
+            // Si se ganó la batalla, mostrar el cuadro de victoria con la EXP ganada.
+            // (VictoriaResumenUI consume el flag y se destruye solo al cerrarse.)
+            if (BattleState.PendingWinSummary)
+                new GameObject("VictoriaResumen").AddComponent<VictoriaResumenUI>();
         }
     }
 }

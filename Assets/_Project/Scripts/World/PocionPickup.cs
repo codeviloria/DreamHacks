@@ -24,6 +24,10 @@ namespace DreamHacks.World
             if (!other.CompareTag(playerTag)) return;
             var inv = other.GetComponent<Inventario>();
             if (inv == null) inv = other.GetComponentInParent<Inventario>();
+            // Self-healing: si el Player no tiene el componente (puede faltar si no
+            // se agregó al prefab/escena), lo creamos en runtime para que el pickup
+            // nunca falle en silencio. Enventario es stateless: persiste en BattleState.
+            if (inv == null) inv = other.gameObject.AddComponent<Inventario>();
             if (inv == null) return;
             inv.Agregar(tipo);
             DialogoPocion.Mostrar(tipo, portraitIker, 2.8f);

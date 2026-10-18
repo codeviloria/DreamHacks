@@ -13,6 +13,11 @@ namespace DreamHacks.Combate
     {
         [SerializeField] private UnityEvent onCambio = new UnityEvent();
 
+        // Evento estático: notifica a cualquier listener (p.ej. el HUD del overworld)
+        // aunque el cambio venga de otra instancia de Inventario (los pickups y el
+        // HUD pueden tener instancias distintas). Se dispara en Agregar/Consumir.
+        public static event System.Action OnCambioEstatico;
+
         public UnityEvent OnCambio => onCambio;
 
         public int Rojas => BattleState.InvRojas;
@@ -45,6 +50,7 @@ namespace DreamHacks.Combate
                 case TipoPocion.Rosa: BattleState.InvRosas += n; break;
             }
             onCambio?.Invoke();
+            OnCambioEstatico?.Invoke();
         }
 
         public bool Consumir(TipoPocion t)
@@ -57,6 +63,7 @@ namespace DreamHacks.Combate
                 case TipoPocion.Rosa: BattleState.InvRosas--; break;
             }
             onCambio?.Invoke();
+            OnCambioEstatico?.Invoke();
             return true;
         }
     }

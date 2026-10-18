@@ -1,0 +1,82 @@
+{
+  "nota": "PROVISIONAL. Adaptado de la rama final buena (Iker elige NO). Reemplazar por los definitivos cuando lleguen. quien: Hannah (izquierda), Iker (derecha), Narrador (sin retrato), Hacker (texto verde, sin retrato).",
+  "dialogos": [
+    {
+      "id": 1,
+      "titulo": "Despertar",
+      "lineas": [
+        { "quien": "Narrador", "texto": "(Iker despierta en una camilla fría. Los monitores pitan sin ritmo.)" },
+        { "quien": "Iker", "texto": "¿Dónde... estoy? ¿Esto es el hospital?" },
+        { "quien": "Hannah", "texto": "Iker... ¿me escuchas?" },
+        { "quien": "Iker", "texto": "¿Hannah? ¿Dónde estás? ¡No te veo!" }
+      ]
+    },
+    {
+      "id": 2,
+      "titulo": "El recuerdo de la purga",
+      "lineas": [
+        { "quien": "Narrador", "texto": "(Un recuerdo golpea a Iker como estática.)" },
+        { "quien": "Iker", "texto": "¡No! ¡No la mataré para salvarme!" },
+        { "quien": "Hacker", "texto": "ERROR. SUJETO REBELDE. INICIANDO PURGA." },
+        { "quien": "Iker", "texto": "Elegí que no... y por eso desperté aquí." }
+      ]
+    },
+    {
+      "id": 3,
+      "titulo": "Las tres camas",
+      "lineas": [
+        { "quien": "Narrador", "texto": "(Tras un vidrio se ven tres camas. En una de ellas está Hannah, en coma.)" },
+        { "quien": "Iker", "texto": "Hannah... Estás aquí. Tu cuerpo está aquí." },
+        { "quien": "Hannah", "texto": "Estoy atrapada... dentro del sistema. No puedo salir sola." },
+        { "quien": "Iker", "texto": "Entonces voy a entrar a buscarte." }
+      ]
+    },
+    {
+      "id": 4,
+      "titulo": "Paciente desconocido",
+      "lineas": [
+        { "quien": "Narrador", "texto": "(Un registro parpadea en una pantalla: PACIENTE 03 — IDENTIDAD DESCONOCIDA.)" },
+        { "quien": "Iker", "texto": "¿Quién es el tercero? Tiene un parche en el ojo..." },
+        { "quien": "Hannah", "texto": "No lo sé... pero cuando estoy en el sistema siento que me observa." }
+      ]
+    },
+    {
+      "id": 5,
+      "titulo": "La computadora central",
+      "lineas": [
+        { "quien": "Hannah", "texto": "La computadora central... está en la sala del núcleo." },
+        { "quien": "Hannah", "texto": "Si te conectas ahí, puedes llegar hasta mí." },
+        { "quien": "Iker", "texto": "Pero el acceso está bloqueado." },
+        { "quien": "Hannah", "texto": "Los recuerdos de este lugar son la llave. Encuéntralos todos." }
+      ]
+    },
+    {
+      "id": 6,
+      "titulo": "Mensaje anónimo",
+      "lineas": [
+        { "quien": "Hacker", "texto": "Pudiste volver a tu vida, pero elegiste ser un virus por un archivo corrupto." },
+        { "quien": "Iker", "texto": "¡Ella no es un archivo, es humana!" },
+        { "quien": "Hacker", "texto": "Todo es un archivo, Iker. Hasta tú." }
+      ]
+    },
+    {
+      "id": 7,
+      "titulo": "No le hagas caso",
+      "lineas": [
+        { "quien": "Hannah", "texto": "No le hagas caso. Quiere que te rindas." },
+        { "quien": "Iker", "texto": "No pienso rendirme. No sin ti." },
+        { "quien": "Hannah", "texto": "Ya casi... el núcleo empieza a responder." }
+      ]
+    },
+    {
+      "id": 8,
+      "titulo": "Conexión",
+      "lineas": [
+        { "quien": "Narrador", "texto": "(Las luces del pasillo se estabilizan. Algo se desbloquea a lo lejos.)" },
+        { "quien": "Hannah", "texto": "Iker... gracias..." },
+        { "quien": "Iker", "texto": "Aguanta, Hannah. ¡Nos vamos juntos!" },
+        { "quien": "Narrador", "texto": "(El acceso a la sala del núcleo está abierto.)" }
+      ]
+    }
+  ]
+}

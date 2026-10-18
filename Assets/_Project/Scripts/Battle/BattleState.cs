@@ -18,6 +18,11 @@ namespace DreamHacks.Battle
         public static string PendingDestroyEnemyName; // enemigo a destruir al volver
         public static int CurrentIkerHP = -1;     // CUARTOS (10 corazones = 40 cuartos). -1 = sin inicializar (= full).
 
+        // Resumen de victoria pendiente: si es true, al volver al overworld
+        // (p.ej. Hospital) se muestra el cuadro "¡VICTORIA!!!" con la EXP ganada.
+        public static bool PendingWinSummary;
+        public static int LastExpGained;          // EXP ganada en la última batalla.
+
         // Si true, al volver al overworld el Player es reposicionado al spawn
         // inicial (p. ej. tras morir), no a la posición donde tocó al enemigo.
         public static bool VolverAInicio;
@@ -39,17 +44,20 @@ namespace DreamHacks.Battle
             ReturnScene = returnScene;
             ReturnPosition = returnPos;
             PendingDestroyEnemyName = null;
+            PendingWinSummary = false;
         }
 
         public static void EndWin()
         {
             PendingDestroyEnemyName = EnemyGameObjectName;
+            PendingWinSummary = true;
             InBattle = false;
         }
 
         public static void EndLose()
         {
             PendingDestroyEnemyName = null;
+            PendingWinSummary = false;
             CurrentIkerHP = -1; // reset HP
             VolverAInicio = true;
             InBattle = false;
@@ -58,6 +66,7 @@ namespace DreamHacks.Battle
         public static void EndFlee()
         {
             PendingDestroyEnemyName = null;
+            PendingWinSummary = false;
             InBattle = false;
         }
 
@@ -71,6 +80,8 @@ namespace DreamHacks.Battle
             ReturnPosition = Vector3.zero;
             PendingDestroyEnemyName = null;
             CurrentIkerHP = -1;
+            PendingWinSummary = false;
+            LastExpGained = 0;
             VolverAInicio = false;
             InvRojas = 0;
             InvAzules = 0;

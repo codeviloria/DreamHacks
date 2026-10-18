@@ -30,6 +30,7 @@ namespace DreamHacks.Battle
         [SerializeField, Min(1)] private int golpesPorCuartoRecibido = 2;
 
         private BattleUI _ui;
+        private BattleAudio _audio;
         private VidaJugador _ikerVida;
         private VidaEnemigo _enemigoVida;
         private int _atkBuff;
@@ -43,6 +44,7 @@ namespace DreamHacks.Battle
         private void Awake()
         {
             _ui = GetComponent<BattleUI>();
+            _audio = gameObject.AddComponent<BattleAudio>();
             // VidaJugador vive en un GO propio de la escena Battle (sin SpriteRenderer).
             var ikerGO = new GameObject("IkerVidaProxy");
             ikerGO.transform.SetParent(transform, false);
@@ -60,6 +62,11 @@ namespace DreamHacks.Battle
             _ui.SetEnemyByKey(BattleState.EnemyId);
             _ui.AttachVidas(_ikerVida, _enemigoVida);
             _ui.LogText.text = "¡" + (BattleState.EnemyId ?? "Enemigo") + " aparece!";
+
+            // Música de combate (hacker si el enemigo es de ese tipo).
+            bool esHacker = !string.IsNullOrEmpty(BattleState.EnemyId)
+                && (BattleState.EnemyId.StartsWith("Hacker") || BattleState.EnemyId.StartsWith("Skel"));
+            _audio.ReproducirMusica(esHacker);
 
             // Pool aleatorio de pociones (0-3) y de intentos (2-4).
             _pocionesPool.Clear();
@@ -99,6 +106,7 @@ namespace DreamHacks.Battle
             _ui.SetBotonesInteractivos(false);
 
             int dmg = ikerDanioBase + (BattleState.PlayerNivel - 1) + _atkBuff;
+            _audio.Espada();
             _enemigoVida.RecibirDanio(dmg);
             Log("Iker (Nv " + BattleState.PlayerNivel + ") hace " + dmg + " cuartos de daño.");
             yield return _ui.FlashEnemy();
@@ -188,6 +196,7 @@ namespace DreamHacks.Battle
 
         private void OnResultadoCombo(bool exito)
         {
+            if (exito) _audio.Glitch();
             _intentosRestantes = Mathf.Max(0, _intentosRestantes - 1);
             if (exito && _pocionesPool.Count > 0)
             {
@@ -262,6 +271,7 @@ namespace DreamHacks.Battle
             }
             if (dmg > 0)
             {
+                _audio.Golpe();
                 _ikerVida.RecibirDanio(dmg);
                 Log(quien + " ataca y hace " + dmg + " cuartos de daño.");
                 yield return _ui.FlashPlayer();
@@ -278,10 +288,21 @@ namespace DreamHacks.Battle
         private IEnumerator WinSequence()
         {
             Log("¡Victoria!");
+            _audio.PararMusica();
             BattleState.CurrentIkerHP = _ikerVida.CuartosActual;
             int atkAnterior = ikerDanioBase + (BattleState.PlayerNivel - 1);
-            BattleState.PlayerExp++;
+            // Cada victoria otorga 1 EXP (misma regla que PlayerNivel = 1 + PlayerExp).
+            // Lo guardamos para mostrarlo en el cuadro de victoria al volver al overworld.
+            const int expGanada = 1;
+            BattleState.PlayerExp += expGanada;
+            BattleState.LastExpGained = expGanada;
             int atkNuevo = ikerDanioBase + (BattleState.PlayerNivel - 1);
+            // Dejar los datos del cuadro de victoria para el overworld (Hospital).
+            // Los sprites son assets: sobreviven al cambio de escena.
+            VictoriaResumenUI.CargarDatos(
+                _ui.CorazonLleno, _ui.CorazonTresCuartos, _ui.CorazonMedio,
+                _ui.CorazonUnCuarto, _ui.CorazonVacio,
+                _ikerVida.CuartosActual, _ikerVida.CuartosMax);
             BattleState.EndWin();
             yield return _ui.MostrarBannerVictoria(
                 BattleState.PlayerNivel,
@@ -296,6 +317,7 @@ namespace DreamHacks.Battle
         private IEnumerator LoseSequence()
         {
             Log("Iker ha caído... HP restaurado.");
+            _audio.Derrota();
             BattleState.EndLose();
             yield return _ui.MostrarBannerPixel(
                 "¡DERROTA!",
