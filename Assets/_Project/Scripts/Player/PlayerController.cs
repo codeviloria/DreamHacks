@@ -50,7 +50,29 @@ namespace DreamHacks.PlayerNS
 
         private void Update()
         {
-            _moveInput = _moveAction != null ? _moveAction.ReadValue<Vector2>() : Vector2.zero;
+            if (_moveAction != null)
+            {
+                _moveInput = _moveAction.ReadValue<Vector2>();
+            }
+            else
+            {
+                Vector2 input = Vector2.zero;
+                var kb = Keyboard.current;
+                if (kb != null)
+                {
+                    if (kb.wKey.isPressed || kb.upArrowKey.isPressed) input.y += 1f;
+                    if (kb.sKey.isPressed || kb.downArrowKey.isPressed) input.y -= 1f;
+                    if (kb.aKey.isPressed || kb.leftArrowKey.isPressed) input.x -= 1f;
+                    if (kb.dKey.isPressed || kb.rightArrowKey.isPressed) input.x += 1f;
+                }
+                var gp = Gamepad.current;
+                if (gp != null)
+                {
+                    Vector2 stick = gp.leftStick.ReadValue();
+                    if (stick.sqrMagnitude > 0.05f) input = stick;
+                }
+                _moveInput = input;
+            }
 
             // Clamp a magnitud 1 para que la diagonal no sea más rápida.
             if (_moveInput.sqrMagnitude > 1f) _moveInput = _moveInput.normalized;

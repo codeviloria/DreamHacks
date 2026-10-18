@@ -45,3 +45,10 @@ crashlytics-build.properties
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# ---- Capturas temporales ----
+/[Aa]ssets/[Ss]creenshots/
+/[Aa]ssets/[Ss]creenshots.meta
+/[Aa]ssets/_Project/[Ss]creenshots/
+/[Aa]ssets/_Project/[Ss]creenshots.meta
+
