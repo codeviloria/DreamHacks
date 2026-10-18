@@ -43,6 +43,11 @@ namespace DreamHacks.Battle
                     var t = root.transform.Find(BattleState.PendingDestroyEnemyName);
                     if (t != null) Destroy(t.gameObject);
                 }
+                else
+                {
+                    var enemyGO = GameObject.Find(BattleState.PendingDestroyEnemyName);
+                    if (enemyGO != null) Destroy(enemyGO);
+                }
                 BattleState.PendingDestroyEnemyName = null;
             }
         }

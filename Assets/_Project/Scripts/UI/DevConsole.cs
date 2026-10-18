@@ -213,6 +213,7 @@ namespace DreamHacks.UI
                     Print("noclipspeed <n> velocidad en noclip");
                     Print("gravity <n>    multiplicador de gravedad");
                     Print("timescale <n>  velocidad del juego");
+                    Print("orden3        lanzar la cinematica Orden 3");
                     Print("tp <x> <y>     teletransportar");
                     Print("pos            mostrar posición");
                     Print("reset          restaurar valores");
@@ -253,6 +254,11 @@ namespace DreamHacks.UI
                     Print("gravedad del player x" + m);
                     break;
                 }
+
+                case "orden3":
+                    SetOpen(false);
+                    Orden3Cinematic.Create();
+                    break;
 
                 case "timescale":
                     Time.timeScale = Mathf.Max(0f, Num(p, 1));
