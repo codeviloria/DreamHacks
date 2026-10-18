@@ -489,6 +489,10 @@ namespace DreamHacks.UI.Editor
             var switchOffSprite = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/_Project/Art/Props/Puzzles/switch_off_forest.png");
             var switchOnSprite = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/_Project/Art/Props/Puzzles/switch_on_forest.png");
 
+            // Hacker & Música
+            var hackerPortrait = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/_Project/Art/Characters/Hacker/hacker_portrait.png");
+            var glitchDrumsClip = AssetDatabase.LoadAssetAtPath<AudioClip>("Assets/_Project/Audio/Music/GlitchDrums.wav");
+
             var forestWorldGo = new GameObject("Bosque_Mundo");
             forestWorldGo.transform.position = Vector3.zero;
             forestWorldGo.transform.localScale = new Vector3(2f, 2f, 1f);
@@ -656,6 +660,29 @@ namespace DreamHacks.UI.Editor
             var barrierProp = switchSo.FindProperty("exitBarrierObject");
             if (barrierProp != null) barrierProp.objectReferenceValue = exitBarrierGo;
             switchSo.ApplyModifiedPropertiesWithoutUndo();
+
+            // Trigger del Hacker en el paso central ("DIALOGOS AQUI")
+            var hackerTriggerGo = new GameObject("Trigger_Hacker_Dialogo");
+            hackerTriggerGo.transform.SetParent(forestWorldGo.transform, false);
+            hackerTriggerGo.transform.position = new Vector3(-0.2f, 1.3f, 0f);
+            var hackerCol = hackerTriggerGo.AddComponent<BoxCollider2D>();
+            hackerCol.isTrigger = true;
+            hackerCol.size = new Vector2(2.8f, 3.2f);
+
+            // Salidas del bosque en el extremo izquierdo (superior e inferior)
+            var exitTopGo = new GameObject("Trigger_Salida_Sup_Izq");
+            exitTopGo.transform.SetParent(forestWorldGo.transform, false);
+            exitTopGo.transform.position = new Vector3(-9.2f, 3.6f, 0f);
+            var exitTopCol = exitTopGo.AddComponent<BoxCollider2D>();
+            exitTopCol.isTrigger = true;
+            exitTopCol.size = new Vector2(1.8f, 2.8f);
+
+            var exitBottomGo = new GameObject("Trigger_Salida_Inf_Izq");
+            exitBottomGo.transform.SetParent(forestWorldGo.transform, false);
+            exitBottomGo.transform.position = new Vector3(-9.2f, -3.6f, 0f);
+            var exitBottomCol = exitBottomGo.AddComponent<BoxCollider2D>();
+            exitBottomCol.isTrigger = true;
+            exitBottomCol.size = new Vector2(1.8f, 2.8f);
 
             forestWorldGo.SetActive(false);
 
@@ -1143,6 +1170,11 @@ namespace DreamHacks.UI.Editor
             so.FindProperty("hannahFollower").objectReferenceValue = hannahFollower;
             so.FindProperty("pushableRock").objectReferenceValue = pushableRock;
             so.FindProperty("forestSwitch").objectReferenceValue = forestSwitch;
+            so.FindProperty("hackerPortraitSprite").objectReferenceValue = hackerPortrait;
+            so.FindProperty("glitchDrumsMusicClip").objectReferenceValue = glitchDrumsClip;
+            so.FindProperty("hackerTrigger").objectReferenceValue = hackerCol;
+            so.FindProperty("forestExitTopTrigger").objectReferenceValue = exitTopCol;
+            so.FindProperty("forestExitBottomTrigger").objectReferenceValue = exitBottomCol;
             so.FindProperty("speakerText").objectReferenceValue = speakerTxt;
             so.FindProperty("bodyText").objectReferenceValue = bodyTxt;
             so.FindProperty("continuePrompt").objectReferenceValue = promptGo;

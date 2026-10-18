@@ -174,6 +174,13 @@ namespace DreamHacks.UI
         [SerializeField] private PushableRock pushableRock;
         [SerializeField] private ForestSwitch forestSwitch;
 
+        [Header("Hacker & Salidas del Bosque")]
+        [SerializeField] private Sprite hackerPortraitSprite;
+        [SerializeField] private AudioClip glitchDrumsMusicClip;
+        [SerializeField] private Collider2D hackerTrigger;
+        [SerializeField] private Collider2D forestExitTopTrigger;
+        [SerializeField] private Collider2D forestExitBottomTrigger;
+
         [Header("Contenido Inicial")]
         [TextArea(2, 4)]
         [SerializeField] private string introPhrase = "Los traumas de la persona se ven reflejados en el mundo, como si fuera un prisma que le da color";
@@ -207,6 +214,8 @@ namespace DreamHacks.UI
         private bool _hannahMet;
         private bool _forestRockMoved;
         private bool _forestSwitchActivated;
+        private bool _hackerEventTriggered;
+        private bool _forestExitTriggered;
 
         // Estado de tareas
         private readonly bool[] _tasksCompleted = new bool[3];
@@ -1918,6 +1927,138 @@ namespace DreamHacks.UI
                     HideInteractionHint();
                 }
             }
+
+            // 3. Evento del Hacker al cruzar el paso central ("DIALOGOS AQUI")
+            if (!_hackerEventTriggered && _hannahMet)
+            {
+                bool inZone = (p.x >= -1.6f && p.x <= 1.1f && p.y >= -0.6f && p.y <= 2.4f);
+                if (inZone)
+                {
+                    _hackerEventTriggered = true;
+                    StartCoroutine(HackerEncounterRoutine());
+                    return;
+                }
+            }
+
+            // 4. Salidas del bosque en el extremo izquierdo
+            if (!_forestExitTriggered)
+            {
+                bool atTopExit = (p.x <= -8.2f && p.y >= 1.8f);
+                bool atBottomExit = (p.x <= -8.2f && p.y <= -1.8f);
+                if (atTopExit || atBottomExit)
+                {
+                    _forestExitTriggered = true;
+                    StartCoroutine(ForestExitSequenceRoutine());
+                    return;
+                }
+            }
+        }
+
+        private IEnumerator HackerEncounterRoutine()
+        {
+            _isBusyWithAction = true;
+            GameSignals.InputBlocked = true;
+            HideInteractionHint();
+
+            if (playerObject != null)
+            {
+                var rb = playerObject.GetComponent<Rigidbody2D>();
+                if (rb != null) rb.linearVelocity = Vector2.zero;
+            }
+
+            // 1. Sonido de glitch inicial
+            if (sfxAudioSource != null)
+            {
+                if (glitchDoorMusicClip != null)
+                    sfxAudioSource.PlayOneShot(glitchDoorMusicClip, 0.95f);
+                else if (phoneVibrationClip != null)
+                    sfxAudioSource.PlayOneShot(phoneVibrationClip, 1f);
+            }
+
+            yield return new WaitForSeconds(0.35f);
+
+            // 2. Activar temblor continuo de pantalla durante toda la conversación
+            _shakeMagnitude = 2.4f;
+
+            // 3. Canción de fondo "Glitch Drums" únicamente durante esta conversación
+            if (apartmentMusicSource != null && glitchDrumsMusicClip != null)
+            {
+                apartmentMusicSource.Stop();
+                apartmentMusicSource.clip = glitchDrumsMusicClip;
+                apartmentMusicSource.loop = true;
+                apartmentMusicSource.volume = 0.9f;
+                apartmentMusicSource.Play();
+            }
+
+            // 4. Diálogos exactos entre (???), Hannah e Iker
+            var hackerLines = new DialogueEntry[]
+            {
+                new DialogueEntry
+                {
+                    speaker = "???",
+                    portrait = hackerPortraitSprite,
+                    text = "Hola, Iker. Hola, Hannah. Sigan mis comandos para salir del bucle. Confíen en mí."
+                },
+                new DialogueEntry
+                {
+                    speaker = "Hannah",
+                    portrait = hannahPortraitSprite,
+                    text = "¿Qué fue eso? Esa voz me dio escalofríos."
+                },
+                new DialogueEntry
+                {
+                    speaker = "Iker",
+                    portrait = ikerPortraitSprite,
+                    text = "Sabe nuestros nombres... No me da buena espina, pero avancemos alerta."
+                },
+                new DialogueEntry
+                {
+                    speaker = "Hannah",
+                    portrait = hannahPortraitSprite,
+                    text = "Vale, te sigo."
+                }
+            };
+
+            bool dialogueDone = false;
+            StartDialogueQueue(hackerLines, () => { dialogueDone = true; });
+            while (!dialogueDone)
+                yield return null;
+
+            // 5. Al acabar los diálogos: cesa el temblor y se detiene la música
+            _shakeMagnitude = 0f;
+
+            if (apartmentMusicSource != null && apartmentMusicSource.isPlaying)
+            {
+                float t = 0f;
+                float startVol = apartmentMusicSource.volume;
+                while (t < 0.6f)
+                {
+                    t += Time.deltaTime;
+                    apartmentMusicSource.volume = Mathf.Lerp(startVol, 0f, t / 0.6f);
+                    yield return null;
+                }
+                apartmentMusicSource.Stop();
+                apartmentMusicSource.volume = musicVolume;
+            }
+
+            _isBusyWithAction = false;
+            GameSignals.InputBlocked = false;
+        }
+
+        private IEnumerator ForestExitSequenceRoutine()
+        {
+            _isBusyWithAction = true;
+            GameSignals.InputBlocked = true;
+            HideInteractionHint();
+
+            if (playerObject != null)
+            {
+                var rb = playerObject.GetComponent<Rigidbody2D>();
+                if (rb != null) rb.linearVelocity = Vector2.zero;
+            }
+
+            // Reproduce la animación retro de cortina binaria cerrándose
+            yield return StartCoroutine(AnimateBinaryShutterCloseRoutine(1.25f));
         }
 
         private IEnumerator SlimeEncounterCutsceneRoutine()
