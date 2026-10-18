@@ -1,0 +1,41 @@
+{
+  "rules": {
+    "damage_variance": [0.85, 1.15],
+    "miss_chance": 0.10,
+    "miss_chance_hacked": 0.05,
+    "levelup_per_battle_won": 1,
+    "items": { "Potion": 30, "HealingFruit": 20, "Food": 15 },
+    "hannah_heal": { "amount": 25, "uses_per_battle": 1, "trigger_hp_ratio": 0.40 },
+    "boss_iframes_seconds": 1.0
+  },
+  "party": {
+    "Iker":   { "hp": 100, "atk": 35, "hp_per_level": 15, "atk_per_level": 5 },
+    "Hannah": { "hp": 85,  "atk": 25, "hp_per_level": 15, "atk_per_level": 5 }
+  },
+  "enemies": {
+    "Slime":              { "display": "Basic Slime",  "hp": 35, "atk": 10, "hacked": false, "lines": "slime" },
+    "SlimeHacked":        { "display": "Basic Slime",  "hp": 60, "atk": 20, "hacked": true,  "lines": "hacked" },
+    "GiantSpider":        { "display": "Giant Spider", "hp": 40, "atk": 15, "hacked": false, "lines": "spider" },
+    "GiantSpiderHacked":  { "display": "Giant Spider", "hp": 65, "atk": 25, "hacked": true,  "lines": "hacked" },
+    "EvilTrunk":          { "display": "Evil Trunk",   "hp": 45, "atk": 20, "hacked": false, "lines": "trunk" },
+    "EvilTrunkHacked":    { "display": "Evil Trunk",   "hp": 70, "atk": 25, "hacked": true,  "lines": "hacked" },
+    "HannahEnemy":        { "display": "Hannah",       "hp": 200, "atk": 20, "hacked": false, "canAttack": false, "lines": "hannah_enemy" }
+  },
+  "boss": {
+    "HackerBoss": {
+      "phases": [
+        { "hp": 300.14, "attacks": [ { "id": "ATK1", "dmg": 30 }, { "id": "ATK2", "dmg": 25 }, { "id": "ATK3", "dmg": 40 } ] },
+        { "hp": 500.14, "attacks": [ { "id": "ATK1", "dmg": 40 }, { "id": "ATK2", "dmg": 50 } ] }
+      ]
+    }
+  },
+  "encounters": {
+    "S1_tutorial":   ["Slime"],
+    "S2_a":          ["GiantSpider"],
+    "S2_b":          ["EvilTrunk"],
+    "S3_a":          ["SlimeHacked"],
+    "S3_b":          ["GiantSpiderHacked"],
+    "S3_c":          ["EvilTrunkHacked"],
+    "S3_path_punish":["SlimeHacked"]
+  }
+}
