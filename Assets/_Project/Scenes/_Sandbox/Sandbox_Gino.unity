@@ -2088,6 +2088,7 @@ MonoBehaviour:
   roomWidth: 20
   roomHeight: 15
   roomCount: 3
+  grid2D: 1
   player: {fileID: 0}
   slideDuration: 0.45
 --- !u!1 &952937858
@@ -2393,9 +2394,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1187669718}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eedaaeaa466dd047a8d959e7b2afcc75, type: 3}
+  m_Script: {fileID: 11500000, guid: c102c0de0a0b4c0d9e0f000000000020, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DreamHacks.Transitions.SceneTransition
+  m_EditorClassIdentifier: Assembly-CSharp::DreamHacks.UI.Orden3Trigger
   targetScene: Bioma1
   targetSpawnId: bioma1_inicio
   onlyPlayer: 1
@@ -15488,6 +15489,55 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3dbcfb43c6dbbf4ebb3eb407cfb7f42e, type: 3}
+--- !u!1 &9900000001
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9900000002}
+  - component: {fileID: 9900000003}
+  m_Layer: 0
+  m_Name: Generador_SawGame
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9900000002
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9900000001}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9900000003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9900000001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1010101010101010101010101010101, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DreamHacks.World.SandboxWorldGenerator
+  roomWidth: 20
+  roomHeight: 15
+  generateOnStart: 1
+  seed: 12345
+  enemyPrefab: {fileID: 100100000, guid: af9dc0e25ee8ca1ae924e1d70cc78c47, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -15507,3 +15557,4 @@ SceneRoots:
   - {fileID: 333099185}
   - {fileID: 378629999}
   - {fileID: 1963969984}
+  - {fileID: 9900000002}
